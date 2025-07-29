@@ -1,0 +1,26 @@
+- return unless group.root? && group.seat_control_available?
+
+.form-group#js-seat-control
+  %h5
+    = _("Seat control")
+  - if group.block_overages_available?
+    %div
+      = f.gitlab_ui_radio_component :seat_control, :block_overages, _("Restricted access"),
+        help_text: _("Invitations above seat count are blocked"),
+        radio_options: { disabled: group.shared_externally? }
+  %div
+    = f.gitlab_ui_radio_component :seat_control, :user_cap, _("Set user cap"),
+      help_text: _("Any user who is added or requests access in excess of the user cap must be approved by an administrator"),
+      radio_options: { disabled: group.shared_externally?, data: { testid: 'seat-control-user-cap-radio' } }
+    = f.label :new_user_signups_cap, _('Number of users for user cap'), class: 'gl-sr-only'
+    .gl-ml-6
+      = f.number_field :new_user_signups_cap, min: 1,
+        class: 'form-control form-control-sm gl-form-input gl-w-auto gl-mt-3',
+        disabled: group.shared_externally?, required: true,
+        data: { testid: 'user-cap-limit-field', dirty_submit_original_value: @group.new_user_signups_cap }
+  .gl-my-5
+    = f.gitlab_ui_radio_component :seat_control, :off, "Open access",
+      help_text: _("Invitations do not require administrator approval"),
+      label_options: { data: { testid: 'seat-control-off-radio' } }
+  - if group.shared_externally?
+    .form-text.gl-text-subtle= seat_control_disabled_help_text

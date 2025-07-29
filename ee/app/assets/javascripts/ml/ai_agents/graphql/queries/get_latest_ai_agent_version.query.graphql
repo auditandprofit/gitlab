@@ -1,0 +1,15 @@
+query getLatestAiAgentVersion($fullPath: ID!, $agentId: AiAgentID!) {
+  project(fullPath: $fullPath) {
+    id
+    aiAgent(id: $agentId) {
+      id
+      name
+      routeId
+      latestVersion {
+        id
+        prompt
+        model
+      }
+    }
+  }
+}

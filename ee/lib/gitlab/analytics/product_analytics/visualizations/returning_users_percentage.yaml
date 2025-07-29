@@ -1,0 +1,15 @@
+---
+version: 1
+type: SingleStat
+data:
+  type: cube_analytics
+  query:
+    measures:
+      - ReturningUsers.returningUserPercentage
+    limit: 100
+    timezone: UTC
+    dimensions: []
+    timeDimensions: []
+options:
+  decimalPlaces: 1
+  unit: "%"

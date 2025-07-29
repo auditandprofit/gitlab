@@ -1,0 +1,12 @@
+- content_for(:hide_empty_navbar, true)
+
+.gl-max-w-4xl.gl-mx-auto.gl-flex.gl-justify-center.gl-px-8
+  .gl-w-full.gl-max-w-lg
+    %h2.gl-mt-0.gl-text-center
+      = s_('Trial|Welcome to GitLab')
+
+    %p.gl-text-subtle.gl-text-lg.gl-text-center
+      = s_('Trial|We need a few more details from you to activate your trial.')
+
+    .gl-max-w-80.gl-mx-auto
+      #js-create-trial-welcome-form{ data: { view_model: form_data } }

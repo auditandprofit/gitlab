@@ -1,0 +1,11 @@
+query EpicBoards($fullPath: ID!) {
+  group(fullPath: $fullPath) {
+    id
+    boards: epicBoards {
+      nodes {
+        id
+        name
+      }
+    }
+  }
+}

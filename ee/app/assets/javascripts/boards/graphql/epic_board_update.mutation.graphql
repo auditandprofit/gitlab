@@ -1,0 +1,10 @@
+#import "./epic_board.fragment.graphql"
+
+mutation updateEpicBoard($input: EpicBoardUpdateInput!) {
+  epicBoardUpdate(input: $input) {
+    epicBoard {
+      ...EpicBoardFragment
+    }
+    errors
+  }
+}

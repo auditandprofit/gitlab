@@ -1,0 +1,52 @@
+fragment BaseWorkItemWidgets on WorkItemWidget {
+  ... on WorkItemWidgetAssignees {
+    assignees {
+      nodes {
+        id
+        avatarUrl
+        name
+        username
+        webUrl
+        webPath
+      }
+    }
+  }
+  ... on WorkItemWidgetAwardEmoji {
+    upvotes
+    downvotes
+  }
+  ... on WorkItemWidgetDevelopment {
+    closingMergeRequests {
+      count
+    }
+  }
+  ... on WorkItemWidgetLabels {
+    allowsScopedLabels
+    labels {
+      nodes {
+        id
+        color
+        description
+        title
+      }
+    }
+  }
+  ... on WorkItemWidgetMilestone {
+    milestone {
+      id
+      dueDate
+      startDate
+      title
+      webPath
+    }
+  }
+  ... on WorkItemWidgetStartAndDueDate {
+    dueDate
+    startDate
+  }
+  ... on WorkItemWidgetTimeTracking {
+    humanReadableAttributes {
+      timeEstimate
+    }
+  }
+}

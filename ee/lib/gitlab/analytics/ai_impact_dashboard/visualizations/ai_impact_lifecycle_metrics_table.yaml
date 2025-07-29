@@ -1,0 +1,22 @@
+---
+version: 1
+type: AiImpactTable
+data:
+  type: value_stream
+  query:
+    filters:
+      excludeMetrics:
+        - cycle_time
+        - lead_time
+        - issues
+        - issues_completed
+        - deploys
+        - lead_time_for_changes
+        - time_to_restore_service
+        - change_failure_rate
+        - vulnerability_high
+        - code_suggestions_usage_rate
+        - code_suggestions_acceptance_rate
+        - duo_chat_usage_rate
+        - duo_rca_usage_rate
+options: {}

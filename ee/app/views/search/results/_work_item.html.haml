@@ -1,0 +1,20 @@
+- index = local_assigns.fetch(:index, nil)
+- work_item = local_assigns.fetch(:work_item, nil)
+- position = index + 1
+
+.search-result-row.gl-mt-5
+  %span.gl-flex.gl-items-center
+    - if work_item.closed?
+      = gl_badge_tag _('Closed'), variant: :info
+    - else
+      = gl_badge_tag _('Open'), variant: :success
+    = sprite_icon('eye-slash', css_class: 'gl-fill-icon-subtle gl-ml-2') if work_item.confidential?
+    = link_to group_work_item_path(work_item.namespace, work_item), data: { event_tracking: 'click_search_result', event_label: @scope, event_value: position }, class: 'gl-w-full' do
+      %span.term.str-truncated.gl-font-bold.gl-ml-2= work_item.title
+  .gl-text-subtle.gl-mb-3.gl-text-sm
+    = sprintf(s_('%{group_name}&%{work_item_iid} &middot; created %{work_item_created} by %{author}'), { group_name: work_item.namespace.full_name, work_item_iid: work_item.iid, work_item_created: time_ago_with_tooltip(work_item.created_at, placement: 'bottom'), author: link_to_member(work_item.author, avatar: false) }).html_safe
+    &middot;
+    = _('updated %{time_ago}').html_safe % { time_ago: time_ago_with_tooltip(work_item.updated_at, placement: 'bottom') }
+  - if work_item.description.present?
+    .description.term.col-sm-10.gl-px-0.gl-text-sm
+      = truncate(work_item.description, length: 200)

@@ -1,0 +1,11 @@
+- return unless groups_requiring_saml_reauth.any?
+
+= render Pajamas::AlertComponent.new(variant: :warning,
+  alert_options: { class: 'gl-mt-5' }, dismissible: false) do |c|
+  - c.with_body do
+    = s_('GroupSAML|Some items may be hidden because your SAML session has expired. Select the group’s path to reauthenticate and view any hidden items.')
+  - c.with_actions do
+    .gl-flex.gl-flex-wrap.gl-gap-3
+      - groups_requiring_saml_reauth.each do |group|
+        = render Pajamas::ButtonComponent.new(href: sso_group_saml_providers_path(group, { token: group.saml_discovery_token, redirect: url_for(safe_params) })) do
+          = group.path

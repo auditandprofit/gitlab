@@ -1,0 +1,5 @@
+#!/bin/bash
+
+terraform init
+terraform plan -var gitlab_runner_token="<%= gitlab_runner_token %>" -out plan.out
+terraform apply plan.out

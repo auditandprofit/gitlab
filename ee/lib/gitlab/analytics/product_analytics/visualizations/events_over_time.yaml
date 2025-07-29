@@ -1,0 +1,22 @@
+---
+version: 1
+type: LineChart
+data:
+  type: cube_analytics
+  query:
+    measures:
+      - TrackedEvents.count
+    timeDimensions:
+      - dimension: TrackedEvents.derivedTstamp
+        granularity: day
+    limit: 100
+    timezone: UTC
+    filters: []
+    dimensions: []
+options:
+  xAxis:
+    name: Date
+    type: time
+  yAxis:
+    name: Counts
+    type: value

@@ -1,0 +1,7 @@
+= render Pajamas::EmptyStateComponent.new(svg_path: 'illustrations/empty-state/empty-geo-md.svg',
+  title: _('Discover GitLab Geo'),
+  primary_button_text: _('More information'),
+  primary_button_link: help_page_path('administration/geo/_index.md')) do |c|
+
+  - c.with_description do
+    = _('Make everyone on your team more productive regardless of their location. GitLab Geo creates read-only mirrors of your GitLab instance so you can reduce the time it takes to clone and fetch large repos.')

@@ -1,0 +1,17 @@
+.ai-agent-chat {
+  // prevents the chat input from jumping all over the place
+  min-height: $gl-spacing-scale-48;
+
+  section {
+    @apply gl-bg-transparent;
+  }
+
+  footer {
+    @apply gl-border-transparent;
+    @apply gl-bg-default;
+  }
+
+  .duo-chat-message > .duo-chat-message-feedback {
+    display: none;
+  }
+}

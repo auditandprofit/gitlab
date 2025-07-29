@@ -1,0 +1,19 @@
+#import "../fragments/streaming_destination.fragment.graphql"
+
+query groupDestinations($fullPath: ID!) {
+  group(fullPath: $fullPath) {
+    id
+    externalAuditEventStreamingDestinations {
+      nodes {
+        ...StreamingDestinationFragment
+        namespaceFilters {
+          id
+          namespace {
+            id
+            fullPath
+          }
+        }
+      }
+    }
+  }
+}

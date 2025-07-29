@@ -1,0 +1,15 @@
+- return unless issuable.weight_available?
+
+- issuable = local_assigns.fetch(:issuable)
+
+- form = local_assigns.fetch(:form)
+
+.form-group.row
+  = form.label :label_ids, class: "col-12" do
+    #{_('Weight')}
+  .col-12
+    .issuable-form-select-holder
+      - if issuable.weight
+        = form.hidden_field :weight
+
+      = form.number_field :weight, class: "form-control", data: { testid: "issuable-weight-input" }, placeholder: _('Enter a number'), autocomplete: "off", min: 0

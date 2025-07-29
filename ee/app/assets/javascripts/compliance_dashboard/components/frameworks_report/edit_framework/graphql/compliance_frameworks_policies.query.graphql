@@ -1,0 +1,52 @@
+#import "~/graphql_shared/fragments/page_info.fragment.graphql"
+
+query complianceFrameworkPolicies(
+  $fullPath: ID!
+  $complianceFramework: ComplianceManagementFrameworkID
+  $approvalPoliciesAfter: String
+  $scanExecutionPoliciesAfter: String
+  $pipelineExecutionPoliciesAfter: String
+  $vulnerabilityManagementPoliciesAfter: String
+) {
+  namespace(fullPath: $fullPath) {
+    id
+    complianceFrameworks(id: $complianceFramework) {
+      nodes {
+        id
+        name
+        scanResultPolicies(after: $approvalPoliciesAfter) {
+          nodes {
+            name
+          }
+          pageInfo {
+            ...PageInfo
+          }
+        }
+        scanExecutionPolicies(after: $scanExecutionPoliciesAfter) {
+          nodes {
+            name
+          }
+          pageInfo {
+            ...PageInfo
+          }
+        }
+        pipelineExecutionPolicies(after: $pipelineExecutionPoliciesAfter) {
+          nodes {
+            name
+          }
+          pageInfo {
+            ...PageInfo
+          }
+        }
+        vulnerabilityManagementPolicies(after: $vulnerabilityManagementPoliciesAfter) {
+          nodes {
+            name
+          }
+          pageInfo {
+            ...PageInfo
+          }
+        }
+      }
+    }
+  }
+}

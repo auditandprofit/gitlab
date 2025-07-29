@@ -1,0 +1,79 @@
+#import "~/graphql_shared/fragments/user.fragment.graphql"
+
+query getComplianceViolation($id: ComplianceManagementProjectsComplianceViolationID!) {
+  projectComplianceViolation(id: $id) {
+    id
+    status
+    createdAt
+    complianceControl {
+      id
+      name
+      complianceRequirement {
+        id
+        name
+        framework {
+          id
+          color
+          default
+          name
+          description
+        }
+      }
+    }
+    project {
+      id
+      nameWithNamespace
+      fullPath
+      webUrl
+    }
+    auditEvent {
+      id
+      createdAt
+      eventName
+      targetId
+      targetType
+      details
+      ipAddress
+      entityPath
+      entityId
+      entityType
+      author {
+        id
+        name
+      }
+      project {
+        id
+        name
+        fullPath
+        webUrl
+      }
+      group {
+        id
+        name
+        fullPath
+        webUrl
+      }
+      user {
+        id
+        name
+      }
+    }
+    notes {
+      nodes {
+        id
+        author {
+          ...User
+        }
+        body
+        bodyHtml
+        system
+        internal
+        systemNoteIconName
+        createdAt
+        discussion {
+          id
+        }
+      }
+    }
+  }
+}

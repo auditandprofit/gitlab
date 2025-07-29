@@ -1,0 +1,11 @@
+title: GitLab Duo usage analytics
+description: View detailed statistics of Duo usage over time.
+status: experiment
+panels:
+  - title: "Assigned Duo seat engagement"
+    visualization: duo_seat_engagement_rate_over_time
+    gridAttributes:
+      yPos: 0
+      xPos: 0
+      width: 3
+      height: 1

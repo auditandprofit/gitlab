@@ -1,0 +1,31 @@
+mutation workItemUpdateCustomFields($input: WorkItemUpdateInput!) {
+  workItemUpdate(input: $input) {
+    workItem {
+      id
+      widgets {
+        ... on WorkItemWidgetCustomFields {
+          type
+          customFieldValues {
+            customField {
+              id
+              fieldType
+            }
+            ... on WorkItemNumberFieldValue {
+              value
+            }
+            ... on WorkItemTextFieldValue {
+              value
+            }
+            ... on WorkItemSelectFieldValue {
+              selectedOptions {
+                id
+                value
+              }
+            }
+          }
+        }
+      }
+    }
+    errors
+  }
+}

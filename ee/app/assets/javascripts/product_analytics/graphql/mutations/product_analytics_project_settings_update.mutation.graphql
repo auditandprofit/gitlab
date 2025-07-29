@@ -1,0 +1,23 @@
+mutation productAnalyticsProjectSettingsUpdate(
+  $fullPath: ID!
+  $productAnalyticsConfiguratorConnectionString: String
+  $productAnalyticsDataCollectorHost: String
+  $cubeApiBaseUrl: String
+  $cubeApiKey: String
+) {
+  productAnalyticsProjectSettingsUpdate(
+    input: {
+      fullPath: $fullPath
+      productAnalyticsConfiguratorConnectionString: $productAnalyticsConfiguratorConnectionString
+      productAnalyticsDataCollectorHost: $productAnalyticsDataCollectorHost
+      cubeApiBaseUrl: $cubeApiBaseUrl
+      cubeApiKey: $cubeApiKey
+    }
+  ) {
+    productAnalyticsConfiguratorConnectionString
+    productAnalyticsDataCollectorHost
+    cubeApiBaseUrl
+    cubeApiKey
+    errors
+  }
+}

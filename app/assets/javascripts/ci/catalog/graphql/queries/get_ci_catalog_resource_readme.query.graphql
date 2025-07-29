@@ -1,0 +1,12 @@
+query getCiCatalogResourceReadme($fullPath: ID!, $version: String) {
+  ciCatalogResource(fullPath: $fullPath) {
+    id
+    webPath
+    versions(name: $version) {
+      nodes {
+        id
+        readmeHtml
+      }
+    }
+  }
+}

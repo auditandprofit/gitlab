@@ -1,0 +1,7 @@
+.gl-mt-3
+  = render Pajamas::AlertComponent.new(variant: :warning,
+    dismissible: true,
+    alert_options: { class: 'js-storage-pre-enforcement-alert', data: callout_data}) do |c|
+    - c.with_body do
+      %p= text_paragraph_1
+      %p= text_paragraph_2

@@ -1,0 +1,28 @@
+.marketing-background-gradient {
+  background: linear-gradient(165deg,
+    $red-50 10%,
+    #f9f6f9 15%,
+    $white 30% 75%,
+    #f9f6f9 95%,
+    $red-50 100%);
+  background-attachment: fixed;
+}
+
+.marketing-styling {
+  .black-btn {
+    background-color: $brand-charcoal !important;
+
+    &:not(:focus) {
+      border-color: $brand-charcoal !important;
+    }
+
+    &:hover {
+      color: $brand-charcoal !important;
+      background-color: $white !important;
+    }
+  }
+
+  .text-brand-purple-02 {
+    color: $brand-purple-02;
+  }
+}

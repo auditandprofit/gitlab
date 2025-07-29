@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "ActiveContext collections metadata",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "include_ref_fields": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether or not to use ref_id and ref_version fields"
+    },
+    "search_embedding_version": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0,
+      "description": "Version of the embedding model being used for search"
+    },
+    "indexing_embedding_versions": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "uniqueItems": true,
+      "description": "Versions of the embedding models being used for indexing"
+    },
+    "collection_class": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The name of the collection class"
+    }
+  }
+}

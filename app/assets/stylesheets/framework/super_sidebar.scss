@@ -1,0 +1,739 @@
+$super-sidebar-transition-delay: 0.4s;
+$super-sidebar-transition-duration: 0.2s;
+$super-sidebar-transition-hint-duration: $super-sidebar-transition-duration * 0.25;
+$command-palette-spacing: px-to-rem(14px);
+
+@mixin notification-dot($color, $size, $top, $left) {
+  background-color: $color;
+  border: 2px solid var(--super-sidebar-bg);
+  position: absolute;
+  height: $size;
+  width: $size;
+  top: $top;
+  left: $left;
+  border-radius: 50%;
+  transition: background-color 100ms linear, border-color 100ms linear;
+}
+
+.super-sidebar-skip-to {
+  top: $calc-application-bars-height;
+  z-index: $super-sidebar-skip-to-z-index;
+}
+
+.super-sidebar {
+  --super-sidebar-bg: var(--gl-background-color-subtle);
+  --super-sidebar-border-color: var(--gl-color-alpha-dark-8);
+  --super-sidebar-context-header-color: var(--gl-text-color-default);
+  --super-sidebar-accent-color: #{$blue-500};
+  --super-sidebar-user-bar-bg: var(--gl-color-alpha-dark-4);
+
+  --super-sidebar-user-bar-button-bg: var(--gl-background-color-subtle);
+  --super-sidebar-user-bar-button-color: var(--gl-text-color-default);
+  --super-sidebar-user-bar-button-border-color: var(--gl-color-alpha-dark-16);
+  --super-sidebar-user-bar-button-hover-bg: var(--gl-color-alpha-dark-8);
+  --super-sidebar-user-bar-button-hover-color: var(--gl-text-color-default);
+  --super-sidebar-user-bar-button-active-bg: var(--gl-color-alpha-dark-16);
+
+  --super-sidebar-nav-item-hover-bg: var(--gl-color-alpha-dark-8);
+  --super-sidebar-nav-item-active-bg: var(--gl-color-alpha-dark-16);
+  --super-sidebar-nav-item-current-bg: var(--gl-color-alpha-dark-8);
+
+  --super-sidebar-hr-mix-blend-mode: multiply;
+
+  .gl-dark & {
+    --super-sidebar-border-color: var(--gl-border-color-section);
+    --super-sidebar-user-bar-bg: var(--gl-color-alpha-light-4);
+
+    --super-sidebar-user-bar-button-bg: var(--gl-color-alpha-light-16);
+    --super-sidebar-user-bar-button-border-color: transparent;
+    --super-sidebar-user-bar-button-hover-bg: var(--gl-color-alpha-light-24);
+    --super-sidebar-user-bar-button-active-bg: var(--gl-color-alpha-light-36);
+
+    --super-sidebar-nav-item-hover-bg: var(--gl-color-alpha-light-8);
+    --super-sidebar-nav-item-active-bg: var(--gl-color-alpha-light-16);
+    --super-sidebar-nav-item-current-bg: var(--gl-color-alpha-light-8);
+
+    --super-sidebar-hr-mix-blend-mode: screen;
+  }
+}
+
+@mixin super-sidebar-theme(
+  $background,
+  $user-bar-background,
+  $user-bar-button-color,
+  $context-header,
+  $accent-color,
+) {
+  .super-sidebar {
+    --super-sidebar-bg: #{$background};
+    --super-sidebar-user-bar-bg: #{$user-bar-background};
+    --super-sidebar-context-header-color: #{$context-header};
+    --super-sidebar-accent-color: #{$accent-color};
+
+    --super-sidebar-user-bar-button-bg: var(--gl-color-alpha-light-16);
+    --super-sidebar-user-bar-button-color: #{$user-bar-button-color};
+    --super-sidebar-user-bar-button-border-color: transparent;
+    --super-sidebar-user-bar-button-hover-bg: var(--gl-color-alpha-light-24);
+    --super-sidebar-user-bar-button-hover-color: #{$user-bar-button-color};
+    --super-sidebar-user-bar-button-active-bg: var(--gl-color-alpha-light-36);
+  }
+}
+
+.ui-blue {
+  @include super-sidebar-theme(
+    $background: var(--gl-color-theme-blue-10),
+    $user-bar-background: var(--gl-color-theme-blue-900),
+    $user-bar-button-color: var(--gl-color-theme-blue-50),
+    $context-header: var(--gl-color-theme-blue-900),
+    $accent-color: var(--gl-color-theme-blue-900),
+  );
+
+  &.gl-dark {
+    @include super-sidebar-theme(
+      $background: var(--gl-background-color-subtle),
+      $user-bar-background: var(--gl-color-theme-blue-900),
+      $user-bar-button-color: var(--gl-color-theme-blue-50),
+      $context-header: var(--gl-color-theme-blue-300),
+      $accent-color: var(--gl-color-theme-blue-500),
+    );
+  }
+}
+
+.ui-gray {
+  @include super-sidebar-theme(
+    $background: var(--gl-background-color-subtle),
+    $user-bar-background: var(--gl-color-neutral-900),
+    $user-bar-button-color: var(--gl-color-neutral-50),
+    $context-header: var(--gl-color-neutral-900),
+    $accent-color: var(--gl-color-neutral-900),
+  );
+
+  &.gl-dark {
+    @include super-sidebar-theme(
+      $background: var(--gl-background-color-subtle),
+      $user-bar-background: var(--gl-color-neutral-800),
+      $user-bar-button-color: var(--gl-color-neutral-50),
+      $context-header: var(--gl-color-neutral-300),
+      $accent-color: var(--gl-color-neutral-500),
+    );
+  }
+}
+
+.ui-green {
+  @include super-sidebar-theme(
+    $background: var(--gl-color-theme-green-10),
+    $user-bar-background: var(--gl-color-theme-green-900),
+    $user-bar-button-color: var(--gl-color-theme-green-50),
+    $context-header: var(--gl-color-theme-green-900),
+    $accent-color: var(--gl-color-theme-green-900),
+  );
+
+  &.gl-dark {
+    @include super-sidebar-theme(
+      $background: var(--gl-background-color-subtle),
+      $user-bar-background: var(--gl-color-theme-green-900),
+      $user-bar-button-color: var(--gl-color-theme-green-50),
+      $context-header: var(--gl-color-theme-green-300),
+      $accent-color: var(--gl-color-theme-green-500),
+    );
+  }
+}
+
+.ui-indigo {
+  @include super-sidebar-theme(
+    $background: var(--gl-color-theme-indigo-10),
+    $user-bar-background: var(--gl-color-theme-indigo-900),
+    $user-bar-button-color: var(--gl-color-theme-indigo-50),
+    $context-header: var(--gl-color-theme-indigo-900),
+    $accent-color: var(--gl-color-theme-indigo-900),
+  );
+
+  &.gl-dark {
+    @include super-sidebar-theme(
+      $background: var(--gl-background-color-subtle),
+      $user-bar-background: var(--gl-color-theme-indigo-900),
+      $user-bar-button-color: var(--gl-color-theme-indigo-50),
+      $context-header: var(--gl-color-theme-indigo-300),
+      $accent-color: var(--gl-color-theme-indigo-500),
+    );
+  }
+}
+
+.ui-light-blue {
+  @include super-sidebar-theme(
+    $background: var(--gl-color-theme-light-blue-10),
+    $user-bar-background: var(--gl-color-theme-light-blue-800),
+    $user-bar-button-color: var(--gl-color-theme-light-blue-50),
+    $context-header: var(--gl-color-theme-light-blue-900),
+    $accent-color: var(--gl-color-theme-light-blue-900),
+  );
+
+  &.gl-dark {
+    @include super-sidebar-theme(
+      $background: var(--gl-background-color-subtle),
+      $user-bar-background: var(--gl-color-theme-light-blue-800),
+      $user-bar-button-color: var(--gl-color-theme-light-blue-50),
+      $context-header: var(--gl-color-theme-light-blue-300),
+      $accent-color: var(--gl-color-theme-light-blue-500),
+    );
+  }
+}
+
+.ui-light-green {
+  @include super-sidebar-theme(
+    $background: var(--gl-color-theme-green-10),
+    $user-bar-background: var(--gl-color-theme-green-800),
+    $user-bar-button-color: var(--gl-color-theme-green-50),
+    $context-header: var(--gl-color-theme-green-900),
+    $accent-color: var(--gl-color-theme-green-900),
+  );
+
+  &.gl-dark {
+    @include super-sidebar-theme(
+      $background: var(--gl-background-color-subtle),
+      $user-bar-background: var(--gl-color-theme-green-800),
+      $user-bar-button-color: var(--gl-color-theme-green-50),
+      $context-header: var(--gl-color-theme-green-300),
+      $accent-color: var(--gl-color-theme-green-500),
+    );
+  }
+}
+
+.ui-light-indigo {
+  @include super-sidebar-theme(
+    $background: var(--gl-color-theme-indigo-10),
+    $user-bar-background: var(--gl-color-theme-indigo-700),
+    $user-bar-button-color: var(--gl-color-theme-indigo-50),
+    $context-header: var(--gl-color-theme-indigo-900),
+    $accent-color: var(--gl-color-theme-indigo-900),
+  );
+
+  &.gl-dark {
+    @include super-sidebar-theme(
+      $background: var(--gl-background-color-subtle),
+      $user-bar-background: var(--gl-color-theme-indigo-700),
+      $user-bar-button-color: var(--gl-color-theme-indigo-50),
+      $context-header: var(--gl-color-theme-indigo-300),
+      $accent-color: var(--gl-color-theme-indigo-500),
+    );
+  }
+}
+
+.ui-light-red {
+  @include super-sidebar-theme(
+    $background: var(--gl-color-theme-light-red-10),
+    $user-bar-background: var(--gl-color-theme-light-red-700),
+    $user-bar-button-color: var(--gl-color-theme-light-red-50),
+    $context-header: var(--gl-color-theme-light-red-900),
+    $accent-color: var(--gl-color-theme-light-red-900),
+  );
+
+  &.gl-dark {
+    @include super-sidebar-theme(
+      $background: var(--gl-background-color-subtle),
+      $user-bar-background: var(--gl-color-theme-light-red-700),
+      $user-bar-button-color: var(--gl-color-theme-light-red-50),
+      $context-header: var(--gl-color-theme-light-red-300),
+      $accent-color: var(--gl-color-theme-light-red-500),
+    );
+  }
+}
+
+.ui-red {
+  @include super-sidebar-theme(
+    $background: var(--gl-color-theme-red-10),
+    $user-bar-background: var(--gl-color-theme-red-900),
+    $user-bar-button-color: var(--gl-color-theme-red-50),
+    $context-header: var(--gl-color-theme-red-900),
+    $accent-color: var(--gl-color-theme-red-900),
+  );
+
+  &.gl-dark {
+    @include super-sidebar-theme(
+      $background: var(--gl-background-color-subtle),
+      $user-bar-background: var(--gl-color-theme-red-900),
+      $user-bar-button-color: var(--gl-color-theme-red-50),
+      $context-header: var(--gl-color-theme-red-300),
+      $accent-color: var(--gl-color-theme-red-500),
+    );
+  }
+}
+
+.super-sidebar {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: $calc-application-bars-height;
+  bottom: $calc-application-footer-height;
+  left: 0;
+  background-color: var(--super-sidebar-bg);
+  border-right: 1px solid var(--super-sidebar-border-color);
+  transform: translate3d(0, 0, 0);
+  width: $super-sidebar-width;
+  z-index: $super-sidebar-z-index;
+
+  &.super-sidebar-loading {
+    transform: translate3d(-100%, 0, 0);
+    transition: none;
+
+    @include media-breakpoint-up(xl) {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    @apply gl-transition-transform;
+  }
+
+  .user-bar {
+    background-color: var(--super-sidebar-user-bar-bg);
+
+    @media (forced-colors: active) {
+      border-bottom: 1px solid;
+    }
+
+    .organization-switcher-button {
+      border: 0 !important;
+
+      &:not(:active),
+      &:not(:hover),
+      &:not(:focus) {
+        background-color: transparent;
+        box-shadow: none;
+      }
+
+      .gl-avatar {
+        color: var(--super-sidebar-user-bar-button-color);
+      }
+    }
+
+    .user-bar-dropdown-toggle {
+      padding: $gl-spacing-scale-2;
+      border-style: none;
+
+      &[aria-expanded='true'] {
+        background-color: var(--super-sidebar-user-bar-button-hover-bg);
+      }
+    }
+
+    .brand-logo,
+    .btn-default-tertiary,
+    .user-bar-button {
+      color: var(--super-sidebar-user-bar-button-color);
+
+      &:active,
+      &:hover,
+      &:focus {
+        background-color: var(--super-sidebar-user-bar-button-hover-bg);
+        color: var(--super-sidebar-user-bar-button-hover-color);
+      }
+
+      &:active {
+        background-color: var(--super-sidebar-user-bar-button-active-bg) !important;
+      }
+
+      &:focus,
+      &:active {
+        @apply gl-focus;
+      }
+    }
+
+    /**
+     * Add transition to align with GlButton :hover/:focus transition
+     */
+    .brand-logo,
+    .user-bar-button {
+      @include transition(background-color, border-color, color, box-shadow);
+    }
+
+    .btn-default-tertiary {
+      mix-blend-mode: normal;
+    }
+
+    .user-bar-button {
+      background-color: var(--super-sidebar-user-bar-button-bg);
+      border: 1px solid var(--super-sidebar-user-bar-button-border-color);
+
+      &[aria-expanded='true'] {
+        background-color: var(--super-sidebar-user-bar-button-hover-bg);
+        color: var(--super-sidebar-user-bar-button-hover-color);
+      }
+    }
+
+    .gl-new-dropdown-toggle[aria-expanded='true'] {
+      background-color: var(--super-sidebar-user-bar-button-hover-bg);
+      color: var(--super-sidebar-user-bar-button-hover-color);
+    }
+  }
+
+  .super-sidebar-nav-item {
+    &:hover,
+    &:focus,
+    &.with-mouse-over-flyout {
+      background-color: var(--super-sidebar-nav-item-hover-bg);
+    }
+
+    &.super-sidebar-nav-item-current {
+      background-color: var(--super-sidebar-nav-item-current-bg);
+    }
+
+    &:active,
+    &:focus:active {
+      background-color: var(--super-sidebar-nav-item-active-bg);
+    }
+  }
+
+  hr {
+    mix-blend-mode: var(--super-sidebar-hr-mix-blend-mode);
+  }
+
+  .active-indicator {
+    background-color: var(--super-sidebar-accent-color);
+  }
+
+  .btn-with-notification {
+    position: relative;
+
+    .notification-dot-warning {
+      @include notification-dot($orange-300, 12px, 1px, 19px);
+    }
+
+    &:hover,
+    &:focus {
+      .notification {
+        background-color: var(--super-sidebar-user-bar-button-hover-bg);
+      }
+    }
+  }
+
+  .super-sidebar-help-center-toggle[aria-expanded='true'] {
+    background-color: $gray-50 !important;
+  }
+
+  #trial-status-sidebar-widget:hover {
+    text-decoration: none;
+    color: var(--gl-color-neutral-0);
+  }
+}
+
+.super-sidebar-context-header {
+  color: var(--super-sidebar-context-header-color);
+}
+
+.super-sidebar-overlay {
+  display: none;
+}
+
+.super-sidebar-has-peeked {
+  margin-top: calc(#{$header-height} - #{$gl-spacing-scale-2});
+  margin-bottom: #{$gl-spacing-scale-2};
+}
+
+.super-sidebar-peek {
+  margin-left: #{$gl-spacing-scale-2};
+}
+
+.super-sidebar-peek,
+.super-sidebar-peek-hint {
+  @apply gl-shadow;
+  border-right: 0;
+}
+
+.super-sidebar-peek-hint {
+  @media (prefers-reduced-motion: no-preference) {
+    transition: transform $super-sidebar-transition-hint-duration ease-out;
+  }
+}
+
+.super-sidebar-peek {
+  @apply gl-rounded-base;
+
+  .user-bar {
+    border-radius: $gl-border-radius-base $gl-border-radius-base 0 0;
+  }
+}
+
+.page-with-super-sidebar {
+  padding-left: 0;
+
+  @media (prefers-reduced-motion: no-preference) {
+    @apply gl-transition-padding;
+  }
+
+  &:not(.page-with-super-sidebar-collapsed) {
+    .super-sidebar-overlay {
+      display: block;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      @apply gl-bg-overlay;
+      z-index: $super-sidebar-z-index - 1;
+
+      @include media-breakpoint-up(xl) {
+        display: none;
+      }
+    }
+  }
+
+  @include media-breakpoint-up(xl) {
+    padding-left: $super-sidebar-width;
+
+    .super-sidebar-toggle {
+      display: none;
+    }
+  }
+}
+
+.page-with-super-sidebar-collapsed {
+  .super-sidebar {
+    transform: translate3d(-100%, 0, 0);
+
+    &.super-sidebar-peek {
+      transform: translate3d(0, 0, 0);
+    }
+
+    &.super-sidebar-peek-hint {
+      transform: translate3d(calc(#{$gl-spacing-scale-3} - 100%), 0, 0);
+    }
+  }
+
+  @include media-breakpoint-up(xl) {
+    padding-left: 0;
+
+    .super-sidebar-toggle {
+      display: block;
+    }
+  }
+}
+
+.gl-dark {
+  .super-sidebar {
+    .gl-new-dropdown-custom-toggle {
+      .btn-with-notification.btn-with-notification {
+        mix-blend-mode: unset;
+      }
+    }
+  }
+}
+
+.global-search-modal {
+  padding: 3rem 0.5rem 0;
+
+  &.gl-modal .modal-dialog {
+    align-items: flex-start;
+  }
+
+  @include gl-media-breakpoint-up(sm) {
+    padding: 5rem 1rem 0;
+  }
+
+  .vertical-align-normalization {
+    margin-top: -$gl-spacing-scale-3;
+    margin-bottom: -$gl-spacing-scale-3;
+  }
+
+
+  .show-focus-layover {
+    &:focus,
+    &:focus-within {
+      .show-focus-layover-hint {
+        @apply gl-opacity-10;
+      }
+    }
+  }
+
+  .command-palette-px {
+    padding-left: $command-palette-spacing;
+    padding-right: $command-palette-spacing;
+  }
+
+  // This is a temporary workaround!
+  // the button in GitLab UI Search components need to be updated to not be the small size
+  // see in Figma: https://www.figma.com/file/qEddyqCrI7kPSBjGmwkZzQ/Component-library?node-id=43905%3A45540
+  .gl-search-box-by-type-clear.btn-sm {
+    padding: 0.5rem !important;
+  }
+
+  .modal-content {
+    border-radius: $gl-border-radius-large !important;
+  }
+
+  .gl-search-box-by-type-input-borderless {
+    @apply gl-rounded-base;
+  }
+
+  .global-search-results {
+    max-height: 30rem;
+
+    .gl-new-dropdown-item {
+      @apply gl-px-3;
+    }
+
+    // Target groups
+    [id*='gl-disclosure-dropdown-group'] {
+      padding-left: $command-palette-spacing;
+      padding-right: $command-palette-spacing;
+    }
+
+    .gl-scroll-scrim {
+      border-width: 0 !important;
+    }
+  }
+
+  &.gl-modal .modal-footer {
+    @apply gl-bg-strong gl-border-t;
+    padding: $command-palette-spacing;
+  }
+}
+
+.transition-opacity-on-hover--context {
+  .transition-opacity-on-hover--target {
+    @apply gl-transition-opacity;
+    @apply gl-duration-fast;
+    @apply gl-ease-linear;
+
+    &:hover {
+      transition-delay: $super-sidebar-transition-delay;
+    }
+  }
+
+  &:hover {
+    .transition-opacity-on-hover--target {
+      transition-delay: $super-sidebar-transition-delay;
+    }
+  }
+}
+
+.show-on-focus-or-hover--context {
+  .show-on-focus-or-hover--target {
+    opacity: 0;
+
+    &:hover,
+    &:focus {
+      opacity: 1;
+    }
+  }
+
+  &:hover,
+  &:focus-within {
+    .show-on-focus-or-hover--control {
+      background-color: var(--super-sidebar-nav-item-hover-bg);
+    }
+
+    .show-on-focus-or-hover--target {
+      opacity: 1;
+    }
+  }
+
+  .show-on-focus-or-hover--control {
+    &:hover,
+    &:focus {
+      + .show-on-focus-or-hover--target {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.hide-on-focus-or-hover--context {
+  .hide-on-focus-or-hover--target {
+    opacity: 1;
+  }
+
+  &:hover,
+  &:focus-within {
+    .hide-on-focus-or-hover--target {
+      opacity: 0;
+    }
+  }
+
+  .hide-on-focus-or-hover--control {
+    &:hover,
+    &:focus {
+      .hide-on-focus-or-hover--target {
+        opacity: 0;
+      }
+    }
+  }
+}
+
+.super-sidebar-mix-blend-mode {
+  mix-blend-mode: multiply;
+
+  .gl-dark & {
+    mix-blend-mode: screen;
+  }
+}
+
+// Styles for the ScrollScrim component.
+// Should eventually be moved to gitlab-ui.
+// See https://gitlab.com/gitlab-org/gitlab-services/design.gitlab.com/-/issues/2688
+
+$scroll-scrim-height: 2.25rem;
+
+.gl-scroll-scrim {
+  .top-scrim-wrapper,
+  .bottom-scrim-wrapper {
+    height: $scroll-scrim-height;
+    opacity: 0;
+    position: sticky;
+    z-index: 1;
+    display: block;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    transition: opacity 0.1s;
+  }
+
+  .top-scrim-wrapper {
+    top: 0;
+    margin-bottom: -$scroll-scrim-height;
+
+    .top-scrim {
+      background: linear-gradient(180deg, var(--super-sidebar-bg, $gray-10) 0%, $transparent-rgba 100%);
+    }
+  }
+
+  .bottom-scrim-wrapper {
+    bottom: 0;
+    margin-top: -$scroll-scrim-height;
+
+    .bottom-scrim {
+      background: linear-gradient(180deg, $transparent-rgba 0%, var(--super-sidebar-bg, $gray-10));
+    }
+  }
+
+  .top-scrim,
+  .bottom-scrim {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  &.top-scrim-visible .top-scrim-wrapper,
+  &.bottom-scrim-visible .bottom-scrim-wrapper {
+    opacity: 1;
+  }
+}
+
+// Tweaks to the styles for the ScrollScrim component above (line 418)
+// are leaking into the collapsible list box dropdowns
+// https://gitlab.com/gitlab-org/gitlab/-/issues/435538
+
+.gl-new-dropdown {
+  .top-scrim-wrapper {
+    margin-bottom: 0;
+  }
+
+  .bottom-scrim-wrapper {
+    margin-top: 0;
+  }
+}
+
+.custom-gradient-progress .gl-progress {
+  background: linear-gradient(90deg, #ffb177 0%, #936fff 100%);
+}

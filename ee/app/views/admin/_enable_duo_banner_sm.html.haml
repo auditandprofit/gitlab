@@ -1,0 +1,8 @@
+- return unless show_enable_duo_banner_sm?(callouts_feature_name)
+
+.js-enable-duo-banner-sm{ data: {
+    banner_title: title,
+    callouts_feature_name: callouts_feature_name,
+    license_tier: current_license_title,
+  }
+}

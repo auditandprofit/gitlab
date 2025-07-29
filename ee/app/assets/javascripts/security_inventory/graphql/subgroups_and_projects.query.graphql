@@ -1,0 +1,90 @@
+query SubgroupsAndProjects(
+  $fullPath: ID!
+  $subgroupsFirst: Int
+  $subgroupsAfter: String
+  $projectsFirst: Int
+  $projectsAfter: String
+  $search: String
+  $hasSearch: Boolean!
+) {
+  group(fullPath: $fullPath) {
+    id
+    descendantGroups(
+      includeParentDescendants: false
+      first: $subgroupsFirst
+      after: $subgroupsAfter
+    ) @skip(if: $hasSearch) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        __typename
+        id
+        name
+        descendantGroupsCount
+        projectsCount
+        path
+        fullPath
+        avatarUrl
+        webUrl
+        updatedAt
+        analyzerStatuses {
+          success
+          failure
+          notConfigured
+          analyzerType
+          updatedAt
+        }
+        vulnerabilityNamespaceStatistic {
+          critical
+          high
+          low
+          info
+          medium
+          unknown
+          updatedAt
+        }
+      }
+    }
+    projects(
+      first: $projectsFirst
+      after: $projectsAfter
+      search: $search
+      includeSubgroups: $hasSearch
+    ) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        __typename
+        id
+        name
+        path
+        fullPath
+        avatarUrl
+        webUrl
+        updatedAt
+        secretPushProtectionEnabled
+        containerScanningForRegistryEnabled
+        vulnerabilityStatistic {
+          critical
+          high
+          low
+          info
+          medium
+          unknown
+          updatedAt
+        }
+        analyzerStatuses {
+          status
+          analyzerType
+          lastCall
+          buildId
+          updatedAt
+        }
+      }
+    }
+  }
+}

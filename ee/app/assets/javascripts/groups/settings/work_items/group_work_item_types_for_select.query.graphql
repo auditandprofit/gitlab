@@ -1,0 +1,11 @@
+query groupWorkItemTypesForSelect($fullPath: ID!) {
+  workspace: namespace(fullPath: $fullPath) {
+    id
+    workItemTypes {
+      nodes {
+        id
+        name
+      }
+    }
+  }
+}

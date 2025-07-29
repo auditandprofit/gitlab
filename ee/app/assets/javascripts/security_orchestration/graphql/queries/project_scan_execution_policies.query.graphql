@@ -1,0 +1,28 @@
+#import "../fragments/scan_policy_source.fragment.graphql"
+#import "../fragments/policy_scope.fragment.graphql"
+
+query projectScanExecutionPolicies(
+  $fullPath: ID!
+  $relationship: SecurityPolicyRelationType = INHERITED
+) {
+  namespace: project(fullPath: $fullPath) {
+    id
+    scanExecutionPolicies(relationship: $relationship, includeUnscoped: false) {
+      nodes {
+        csp
+        name
+        yaml
+        editPath
+        enabled
+        deprecatedProperties
+        policyScope {
+          ...PolicyScope
+        }
+        source {
+          ...SecurityPolicySource
+        }
+        updatedAt
+      }
+    }
+  }
+}

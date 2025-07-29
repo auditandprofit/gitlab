@@ -1,0 +1,10 @@
+- gitlab_duo_text = _('GitLab Duo')
+- page_title gitlab_duo_text
+- breadcrumb_title gitlab_duo_text
+
+= render 'groups/enable_duo_banner',
+  title: s_('AiPowered|Get started with GitLab Duo Core'),
+  group: @group,
+  callouts_feature_name: 'enable_duo_banner_duo_settings_page'
+
+#js-gitlab-duo-home{ data: duo_home_app_data(@group) }

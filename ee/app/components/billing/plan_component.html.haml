@@ -1,0 +1,38 @@
+= render Pajamas::CardComponent.new(card_options: { class: 'gl-text-left gl-mt-7 gl-mr-7 gl-border-none billing-plan-card gl-bg-transparent',
+                                                    data: { testid: card_testid }},
+                                    header_options: { class: header_classes },
+                                    body_options: { class: body_classes },
+                                    footer_options: { class: 'gl-border-none gl-px-0' }) do |c|
+  - c.with_header do
+    = header_text
+  - c.with_body do
+    .gl-text-size-h1-xl.gl-font-bold.gl-leading-36.gl-mb-3
+      = name
+    .gl-text-size-h2.gl-font-bold.gl-leading-24.gl-mb-3
+      = elevator_pitch
+    .gl-flex
+      .gl-font-bold.gl-text-size-h1.gl-pt-2.gl-pr-2
+        = currency_symbol
+      .gl-flex.gl-items-center
+        .gl-font-bold.gl-mb-4.billing-plan-card-price
+          = price_per_month
+        .gl-min-h-8.gl-mb-4
+          .gl-mx-4
+            = s_("BillingPlans|Per user/month")
+          .gl-text-sm.gl-mt-0.gl-mx-4
+            = pricing_text
+    - if show_upgrade_button?
+      = render Pajamas::ButtonComponent.new(href: cta_url, variant: :confirm, category: cta_category,
+        button_options: { data: cta_data }) do
+        = cta_text
+  - c.with_footer do
+    .gl-font-bold.gl-text-lg.gl-mb-4
+      = features_elevator_pitch
+    %ul.gl-px-0.gl-list-none{ data: { testid: 'feature-list' } }
+      - features.each do |feature|
+        %li.gl-text-subtle.gl-leading-20.gl-mb-4
+          = sprite_icon('check', css_class: 'gl-text-purple-500 gl-mr-2')
+          = feature
+    - if show_learn_more_link?
+      .gl-ml-6
+        = link_to(learn_more_text, learn_more_url, target: '_blank', rel: 'noopener noreferrer')

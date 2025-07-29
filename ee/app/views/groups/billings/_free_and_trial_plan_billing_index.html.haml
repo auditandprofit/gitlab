@@ -1,0 +1,37 @@
+= render layout: 'shared/billings/billing_plans_layout', locals: { namespace: namespace, current_plan: current_plan } do
+
+  - if namespace.trial_active?
+    = render 'shared/billings/trial_status', namespace: namespace
+  - else
+    - all_groups_link = link_to s_("BillingPlans|Switch to a different group."),
+                        dashboard_groups_path,
+                        data: { track_action: 'click_button', track_label: 'view_all_groups' },
+                        class: 'gl-underline'
+
+    = html_escape(s_("BillingPlans|Not the group you're looking for? %{all_groups_link}")) % { all_groups_link: all_groups_link.html_safe }
+
+  .billing-plan-divider.gl-mx-auto
+    = render 'shared/targeted_message_banner', group: @group
+    = render GitlabSubscriptions::DuoEnterpriseAlert::FreeComponent.new(namespace: namespace, user: current_user)
+
+  .gl-flex-row.gl-flex.gl-flex-wrap.gl-justify-center.gl-mb-7.gl-ml-7{ data: { track_action: 'render', testid: 'billing-plans' } }
+    = render Billing::FreePlanComponent.new(plans_data: plans_data, namespace: namespace, current_plan: current_plan)
+    = render Billing::PremiumPlanComponent.new(plans_data: plans_data, namespace: namespace, current_plan: current_plan)
+    = render Billing::UltimatePlanComponent.new(plans_data: plans_data, namespace: namespace, current_plan: current_plan)
+
+  - if namespace.trial_active?
+    .gl-mb-9.gl-mx-auto.billing-plan-divider
+      #js-billing-plans{ data: subscription_plan_data_attributes(namespace, current_plan, read_only: read_only) }
+
+  .gl-text-lg.gl-mb-5
+    = s_("BillingPlans|Trusted by")
+  .gl-flex.gl-gap-5.gl-mb-5.gl-justify-center.gl-items-center
+    - logo_classes = 'dark:gl-invert'
+
+    - trusted_by_logos.each do |logo|
+      = image_tag(logo[:path], alt: logo[:name], title: logo[:name], class: logo[:no_invert] ? "" : logo_classes)
+  - image_alt = s_('InProductMarketing|Team members collaborating')
+  = image_tag 'marketing/free-trial-team-members.png', alt: image_alt, title: image_alt, width: 210, height: 90, class: 'gl-mb-3'
+  .gl-text-size-h1.gl-font-bold.gl-leading-24.gl-mb-5
+    = s_("BillingPlans|Have a question? We're here to help.")
+  .js-hand-raise-lead-trigger{ data: free_plan_billing_hand_raise_lead_data }

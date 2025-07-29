@@ -1,0 +1,16 @@
+#import "../fragments/branch_rules.fragment.graphql"
+
+mutation createStatusCheck(
+  $branchRuleId: ProjectsBranchRuleID!
+  $name: String!
+  $externalUrl: String!
+) {
+  branchRuleExternalStatusCheckCreate(
+    input: { branchRuleId: $branchRuleId, name: $name, externalUrl: $externalUrl }
+  ) {
+    externalStatusCheck {
+      ...ExternalStatusCheckFragment
+    }
+    errors
+  }
+}

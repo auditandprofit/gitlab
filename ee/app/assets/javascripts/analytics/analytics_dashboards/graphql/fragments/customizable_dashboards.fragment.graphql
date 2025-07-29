@@ -1,0 +1,11 @@
+fragment CustomizableDashboardsFragment on CustomizableDashboardConnection {
+  nodes {
+    slug
+    title
+    description
+    userDefined
+    status
+    errors
+    filters
+  }
+}

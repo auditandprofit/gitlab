@@ -1,0 +1,6 @@
+- return unless ::Feature.enabled?(:mr_reports_tab, current_user, type: :wip)
+
+= render "projects/merge_requests/tabs/tab", name: "reports", class: "reports-tab" do
+  = tab_link_for @merge_request, :reports do
+    = _("Reports")
+    = gl_badge_tag "0"

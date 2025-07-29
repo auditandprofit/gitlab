@@ -1,0 +1,16 @@
+---
+version: 1
+type: SingleStat
+data:
+  type: cube_analytics
+  query:
+    measures:
+      - Sessions.averageDurationMinutes
+    limit: 100
+    timezone: UTC
+    filters: []
+    dimensions: []
+    timeDimensions: []
+options:
+  decimalPlaces: 1
+  unit: min

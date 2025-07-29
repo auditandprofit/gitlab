@@ -1,0 +1,8 @@
+- if @group.licensed_feature_available?(:group_level_merge_checks_setting)
+  = render ::Layouts::SettingsBlockComponent.new(_('Merge requests'),
+    id: 'js-merge-requests-settings',
+    expanded: expanded) do |c|
+    - c.with_description do
+      = s_('GroupSettings|Choose the merge request checks for projects in this group. This setting overrides the same settings configured on each project in this group.')
+    - c.with_body do
+      = render 'groups/settings/merge_requests/merge_request_pipelines_and_threads_options'

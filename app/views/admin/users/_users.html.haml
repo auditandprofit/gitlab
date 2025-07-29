@@ -1,0 +1,18 @@
+- add_page_specific_style 'page_bundles/search'
+
+- if registration_features_can_be_prompted?
+  = render Pajamas::AlertComponent.new(variant: :tip,
+    alert_options: { class: 'gl-my-5' },
+    dismissible: false) do |c|
+    - c.with_body do
+      = render 'shared/registration_features_discovery_message', feature_title: s_('RegistrationFeatures|send emails to users')
+
+.gl-flex.gl-items-start.gl-flex-wrap.md:gl-flex-nowrap.gl-gap-4.gl-py-4.gl-border-0{ data: { testid: "filtered-search-block" } }
+  #js-admin-users-filter-app
+  .gl-shrink-0
+    = gl_redirect_listbox_tag admin_users_sort_options(filter: params[:filter], search_query: params[:search_query]), @sort,  data: { placement: 'right' }
+
+#js-admin-users-app{ data: admin_users_data_attributes(@users) }
+  = render Pajamas::SpinnerComponent.new(size: :lg, class: 'gl-my-7')
+
+= paginate_collection @users

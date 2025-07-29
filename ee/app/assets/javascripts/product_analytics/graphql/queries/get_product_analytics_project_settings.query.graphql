@@ -1,0 +1,11 @@
+query getProductAnalyticsProjectSettings($projectPath: ID!) {
+  project(fullPath: $projectPath) {
+    id
+    productAnalyticsSettings {
+      productAnalyticsConfiguratorConnectionString
+      productAnalyticsDataCollectorHost
+      cubeApiBaseUrl
+      cubeApiKey
+    }
+  }
+}

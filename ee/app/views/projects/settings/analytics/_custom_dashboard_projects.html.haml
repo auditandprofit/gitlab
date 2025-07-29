@@ -1,0 +1,29 @@
+- can_see_analytics_dashboards = project_analytics_dashboard_available?(@project)
+- return unless can_see_analytics_dashboards
+
+- dashboards_link = link_to('', project_analytics_dashboards_path(@project))
+
+= render ::Layouts::SettingsSectionComponent.new(s_('ProjectSettings|Analytics Dashboards'), id: 'js-analytics-dashboards-settings') do |c|
+  - c.with_description do
+    = safe_format(s_('ProjectSettings|Select the project containing %{link_start}Analytics Dashboards%{link_end} configuration files.'), tag_pair(dashboards_link, :link_start, :link_end))
+    = s_('ProjectSettings|Store configuration files for custom dashboards and visualizations. By default the current project is used.')
+    = link_to s_('ProjectSettings|Change the location of dashboards?'), help_page_path('user/analytics/analytics_dashboards.md', anchor: 'change-the-location-of-dashboards'), target: '_blank', rel: 'noopener noreferrer'
+  - c.with_body do
+    = gitlab_ui_form_for @project, url: project_settings_analytics_path(@project, anchor: 'js-analytics-dashboards-settings'), html: { class: 'fieldset-form', data: { testid: 'analytics-dashboards-settings' } } do |form|
+      = form_errors(@project)
+
+      .form-group
+        - pointer = @project.analytics_dashboards_pointer || @project.build_analytics_dashboards_pointer
+        = form.fields_for :analytics_dashboards_pointer_attributes, pointer do |pointer_form|
+          = pointer_form.hidden_field :id
+          .js-vue-project-select{ data: { label: s_('ProjectSettings|Select a project'),
+              input_name: 'project[analytics_dashboards_pointer_attributes][target_project_id]',
+              input_id: 'project_analytics_dashboards_pointer_attributes_project_id',
+              group_id: @project.root_namespace.id,
+              order_by: 'last_activity_at',
+              with_shared: true.to_s,
+              include_subgroups: true.to_s,
+              clearable: true.to_s,
+              selected: pointer.target_project_id } }
+
+      = form.submit _('Save changes'), pajamas_button: true

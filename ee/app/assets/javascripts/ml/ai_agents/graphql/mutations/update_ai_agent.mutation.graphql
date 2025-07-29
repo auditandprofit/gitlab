@@ -1,0 +1,17 @@
+mutation updateAiAgent($projectPath: ID!, $agentId: AiAgentID!, $name: String, $prompt: String) {
+  aiAgentUpdate(
+    input: { projectPath: $projectPath, agentId: $agentId, name: $name, prompt: $prompt }
+  ) {
+    agent {
+      id
+      routeId
+      name
+      latestVersion {
+        id
+        prompt
+        model
+      }
+    }
+    errors
+  }
+}

@@ -1,0 +1,10 @@
+- targeted_message_id = targeted_message_id_for(group)
+- if targeted_message_id.present?
+  = render Pajamas::BannerComponent.new(banner_options: { class: 'gl-mt-6 gl-text-left js-targeted-message', data: { namespace_id: group.id, targeted_message_id: targeted_message_id, dismiss_endpoint: targeted_message_dismissals_path } }, close_options: { class: 'js-close', data: { testid: 'targeted_message_close_button' } },
+      button_text: s_('TargettedMessages|Contact us'),
+      button_link: promo_pricing_url(path: '/premium-promo', query: { glm_source: "#{request.host}#{CGI.escape(request.path)}", glm_content: 'in-product-banner'})) do |c|
+    - c.with_title do
+      = s_('TargettedMessages|Get access to Premium + GitLab Duo for %{strike}$29%{end_strike} $19 per user/month').html_safe % { strike: '<s>'.html_safe, end_strike: '</s>'.html_safe }
+    %p
+      = s_('TargettedMessages|For a limited time only, new customers can access all the benefits of Premium, plus advanced AI features for just $19. Contact our sales team today to take advantage while this offer lasts!')
+

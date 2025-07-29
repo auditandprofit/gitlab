@@ -1,0 +1,7 @@
+@import 'page_bundles/mixins_and_variables_and_functions';
+@import '../components/generic_vulnerability_report';
+
+.security-charts {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: $gl-spacing-scale-7;
+}

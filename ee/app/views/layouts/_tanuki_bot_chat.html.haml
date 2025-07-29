@@ -1,0 +1,21 @@
+- return unless ::Gitlab::Llm::TanukiBot.enabled_for?(user: current_user, container: nil)
+- resource_id = Gitlab::Llm::TanukiBot.resource_id
+- project_id = Gitlab::Llm::TanukiBot.project_id
+- root_namespace_id = Gitlab::Llm::TanukiBot.root_namespace_id
+- chat_title = ::Ai::AmazonQ.enabled? ? s_('GitLab Duo Chat with Amazon Q') : s_('GitLab Duo Chat')
+- is_agentic_available = Gitlab::Llm::TanukiBot.agentic_mode_available?(user: current_user, project: @project, group: @group)
+
+- if is_agentic_available
+  #js-duo-agentic-chat-app{ data: {
+    project_id: @project&.to_global_id,
+    namespace_id: @group&.to_global_id,
+    resource_id: resource_id,
+    metadata: Gitlab::DuoWorkflow::Client.metadata(current_user).to_json } }
+
+#js-tanuki-bot-chat-app{ data: {
+  user_id: current_user.to_global_id,
+  resource_id: resource_id,
+  project_id: project_id,
+  root_namespace_id: root_namespace_id,
+  chat_title: chat_title,
+  agentic_available: is_agentic_available.to_s } }

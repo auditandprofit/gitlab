@@ -1,0 +1,6 @@
+- project = project || @project
+- ref = local_assigns.fetch(:ref, '')
+
+- if can?(current_user, :download_code, @project)
+  .git-clone-holder.js-git-clone-holder
+    #js-code-dropdown{ data: compact_code_dropdown_data(project, ref) }

@@ -1,0 +1,10 @@
+fragment MergeTrainCarCount on Project {
+  id
+  mergeTrains {
+    nodes {
+      cars {
+        count
+      }
+    }
+  }
+}

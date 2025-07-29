@@ -1,0 +1,7 @@
+%div{ class: wrapper_class }
+  = render Pajamas::AlertComponent.new(variant: variant, dismissible: dismissible, alert_options: { class: 'js-unlimited-members-during-trial-alert', data: alert_data }, title: alert_attributes[:title], close_button_options: { data: close_button_data }) do |c|
+    - c.with_body do
+      = alert_attributes[:body]
+    - c.with_actions do
+      = primary_cta
+      = secondary_cta

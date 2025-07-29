@@ -1,0 +1,9 @@
+- return unless show_enable_duo_banner?(group, callouts_feature_name)
+
+#js-enable-duo-banner{ data: { banner_title: title,
+    group_id: group.id,
+    group_plan: group.actual_plan_name.capitalize,
+    callouts_path: group_callouts_path,
+    callouts_feature_name: callouts_feature_name
+  }
+}

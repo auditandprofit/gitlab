@@ -1,0 +1,21 @@
+- early_access_link_start = '<a href="https://about.gitlab.com/company/preference-center/" target="_blank" rel="noopener noreferrer">'.html_safe
+
+= gitlab_ui_form_for @group, url: group_early_access_opt_in_path, method: :post do |f|
+  %fieldset
+    .form-group.gl-flex.gl-justify-center
+      .gl-flex.gl-gap-5.gl-flex-col.gl-max-w-2xl
+        = render Pajamas::CardComponent.new( header_options: { class: 'gl-p-6 gl-bg-subtle' }, body_options: { class: 'gl-p-6' }, footer_options: { class: 'gl-p-6' }) do |c|
+          - c.with_header do
+            %h2.gl-banner-title.gl-mb-0
+              = _('Confirm enrollment in the Early Access Program')
+
+          - c.with_body do
+            %p.gl-mb-0
+              = _('By enrolling in the Early access program, you agree that GitLab may contact you by email and telephone about products, services, and events related to the Early Access Program. You may opt-out at any time by unsubscribing in emails or visiting our ')
+              = _('%{link_start}Communication Preference Center%{link_end}.').html_safe % { link_start: early_access_link_start, link_end: '</a>'.html_safe }
+
+          - c.with_footer do
+            = f.submit _('Confirm Enrollment'), data: { testid: 'confirm-early-access-enrollment-button' }, pajamas_button: true
+
+            = render Pajamas::ButtonComponent.new(variant: :info, href: edit_group_path(@group)) do
+              = _('Cancel')

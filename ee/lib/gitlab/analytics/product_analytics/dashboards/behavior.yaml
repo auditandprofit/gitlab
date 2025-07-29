@@ -1,0 +1,50 @@
+---
+title: Behavior
+description: All insights on user activity
+version: "2"
+filters: 
+  excludeAnonymousUsers: 
+    enabled: true
+  dateRange: 
+    enabled: true
+panels:
+  - visualization: page_views_over_time
+    title: Page views over time
+    gridAttributes:
+      yPos: 1
+      xPos: 0
+      width: 6
+      height: 5
+    options: {}
+  - visualization: total_pageviews
+    title: Total pageviews
+    gridAttributes:
+      yPos: 0
+      xPos: 0
+      width: 6
+      height: 1
+    options: {}
+  - visualization: total_events
+    title: Total events
+    gridAttributes:
+      yPos: 0
+      xPos: 6
+      width: 6
+      height: 1
+    options: {}
+  - visualization: events_over_time
+    title: Events over time
+    gridAttributes:
+      yPos: 1
+      xPos: 6
+      width: 6
+      height: 5
+    options: {}
+  - visualization: top_pages
+    title: Top pages
+    gridAttributes:
+      yPos: 6
+      xPos: 0
+      width: 12
+      height: 4
+    options: {}

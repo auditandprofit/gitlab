@@ -1,0 +1,144 @@
+fragment PageInfo on PageInfo {
+  hasNextPage
+  hasPreviousPage
+  startCursor
+  endCursor
+}
+
+fragment BaseEpic on Epic {
+  id
+  iid
+  title
+  webPath
+  relativePosition
+  userPermissions {
+    adminEpic
+    createEpic
+  }
+  descendantCounts {
+    openedEpics
+    closedEpics
+    openedIssues
+    closedIssues
+  }
+  healthStatus {
+    issuesAtRisk
+    issuesOnTrack
+    issuesNeedingAttention
+  }
+}
+
+fragment RelatedTreeParentEpic on Epic {
+  ...BaseEpic
+  defaultProjectForIssueCreation {
+    id
+    nameWithNamespace
+  }
+  descendantWeightSum {
+    closedIssues
+    openedIssues
+  }
+}
+
+fragment ChildEpicNode on Epic {
+  ...BaseEpic
+  state
+  reference(full: true)
+  relationPath
+  createdAt
+  closedAt
+  confidential
+  hasChildren
+  hasIssues
+  labels {
+    nodes {
+      id
+      color
+      description
+      textColor
+      title
+    }
+  }
+  group {
+    id
+    fullPath
+  }
+}
+
+query childItems(
+  $fullPath: ID!
+  $iid: ID
+  $pageSize: Int = 100
+  $epicEndCursor: String = ""
+  $issueEndCursor: String = ""
+) {
+  group(fullPath: $fullPath) {
+    id
+    path
+    fullPath
+    epic(iid: $iid) {
+      ...RelatedTreeParentEpic
+      children(first: $pageSize, after: $epicEndCursor) {
+        edges {
+          node {
+            ...ChildEpicNode
+          }
+        }
+        pageInfo {
+          ...PageInfo
+        }
+      }
+      issues(first: $pageSize, after: $issueEndCursor) {
+        edges {
+          node {
+            id
+            iid
+            epicIssueId
+            title
+            blocked
+            closedAt
+            state
+            createdAt
+            confidential
+            dueDate
+            weight
+            webPath
+            reference(full: true)
+            relationPath
+            relativePosition
+            assignees {
+              edges {
+                node {
+                  id
+                  webUrl
+                  name
+                  username
+                  avatarUrl
+                }
+              }
+            }
+            milestone {
+              id
+              title
+              startDate
+              dueDate
+            }
+            healthStatus
+            labels {
+              nodes {
+                id
+                color
+                description
+                textColor
+                title
+              }
+            }
+          }
+        }
+        pageInfo {
+          ...PageInfo
+        }
+      }
+    }
+  }
+}

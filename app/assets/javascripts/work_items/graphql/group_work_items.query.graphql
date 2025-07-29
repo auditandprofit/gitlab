@@ -1,0 +1,73 @@
+query groupWorkItems(
+  $searchTerm: String
+  $fullPath: ID!
+  $types: [IssueType!]
+  $in: [IssuableSearchableField!]
+  $includeAncestors: Boolean = false
+  $includeDescendants: Boolean = false
+  $iid: String = null
+  $searchByIid: Boolean = false
+  $searchByText: Boolean = true
+) {
+  workspace: group(fullPath: $fullPath) {
+    id
+    workItems(
+      search: $searchTerm
+      types: $types
+      state: opened
+      in: $in
+      includeAncestors: $includeAncestors
+      includeDescendants: $includeDescendants
+    ) @include(if: $searchByText) {
+      nodes {
+        id
+        iid
+        title
+        confidential
+        namespace {
+          id
+          fullPath
+        }
+        workItemType {
+          id
+          name
+          iconName
+        }
+        widgets {
+          type
+          ... on WorkItemWidgetMilestone {
+            milestone {
+              id
+              dueDate
+              startDate
+              title
+              webPath
+            }
+          }
+        }
+      }
+    }
+    workItemsByIid: workItems(
+      iid: $iid
+      types: $types
+      includeAncestors: $includeAncestors
+      includeDescendants: $includeDescendants
+    ) @include(if: $searchByIid) {
+      nodes {
+        id
+        iid
+        title
+        confidential
+        namespace {
+          id
+          fullPath
+        }
+        workItemType {
+          id
+          name
+          iconName
+        }
+      }
+    }
+  }
+}

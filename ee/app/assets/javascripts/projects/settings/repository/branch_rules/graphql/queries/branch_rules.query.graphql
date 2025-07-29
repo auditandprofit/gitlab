@@ -1,0 +1,55 @@
+query getBranchRulesEE($projectPath: ID!) {
+  project(fullPath: $projectPath) {
+    id
+    branchRules {
+      nodes {
+        name
+        id
+        isDefault
+        matchingBranchesCount
+        branchProtection {
+          allowForcePush
+          codeOwnerApprovalRequired
+          mergeAccessLevels {
+            edges {
+              node {
+                accessLevel
+                accessLevelDescription
+                group {
+                  id
+                }
+                user {
+                  id
+                }
+              }
+            }
+          }
+          pushAccessLevels {
+            edges {
+              node {
+                accessLevel
+                accessLevelDescription
+                group {
+                  id
+                }
+                user {
+                  id
+                }
+              }
+            }
+          }
+        }
+        externalStatusChecks {
+          nodes {
+            id
+          }
+        }
+        approvalRules {
+          nodes {
+            id
+          }
+        }
+      }
+    }
+  }
+}

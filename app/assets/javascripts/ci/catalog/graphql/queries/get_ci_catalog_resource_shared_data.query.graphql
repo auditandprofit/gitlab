@@ -1,0 +1,7 @@
+#import "../fragments/catalog_resource.fragment.graphql"
+
+query getCiCatalogResourceSharedData($fullPath: ID!) {
+  ciCatalogResource(fullPath: $fullPath) {
+    ...CatalogResourceFields
+  }
+}

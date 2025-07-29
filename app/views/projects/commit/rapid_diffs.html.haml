@@ -1,0 +1,16 @@
+-# no_container is needed here because of full width side-by-side diff view
+- @no_container = true
+- add_to_breadcrumbs _('Commits'), project_commits_path(@project)
+- breadcrumb_title @commit.short_id
+- container_class = !fluid_layout && diff_view == :inline ? 'container-limited' : ''
+- page_title        "#{@commit.title} (#{@commit.short_id})", _('Commits')
+- page_description  @commit.description
+- add_page_specific_style 'page_bundles/pipelines'
+-# required for file browser styles, remove when .diff-tree-list is refactored into Rapid Diffs
+- add_page_specific_style 'page_bundles/merge_requests'
+- add_page_specific_style 'page_bundles/commit_rapid_diffs'
+
+.container-fluid{ class: [container_class] }
+  = render "commit_box"
+  = render "ci_menu"
+  = render ::RapidDiffs::AppComponent.new(@rapid_diffs_presenter)

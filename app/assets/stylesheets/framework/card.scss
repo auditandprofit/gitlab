@@ -1,0 +1,19 @@
+.card-header {
+  &:first-child {
+    // intended use case: card with only a header (for example empty related issues)
+    &:last-child {
+      @include border-radius($card-inner-border-radius);
+    }
+  }
+}
+
+.expandable-card {
+  &.is-collapsed header {
+    border-bottom: 0;
+    @apply gl-rounded-lg hover:gl-bg-subtle;
+  }
+
+  .crud-body {
+    margin: 0 !important;
+  }
+}

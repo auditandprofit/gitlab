@@ -1,0 +1,33 @@
+@import 'page_bundles/mixins_and_variables_and_functions';
+
+@include media-breakpoint-up(md) {
+  .actions-cell {
+    width: $gl-spacing-scale-6;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .actions-cell {
+    div {
+      width: 100% !important;
+      text-align: center !important;
+    }
+  }
+
+  .header-cell {
+    div {
+      width: 100% !important;
+      text-align: left !important;
+      padding: 0 !important;
+    }
+  }
+
+  .actions-cell::before,
+  .header-cell::before {
+    display: none;
+  }
+
+  .da-table-mobile-header::before {
+    color: $gray-400;
+  }
+}

@@ -1,0 +1,10 @@
+#import "../fragments/member_roles.fragment.graphql"
+
+query getProjectMemberRoles($fullPath: ID!) {
+  namespace: project(fullPath: $fullPath) {
+    id
+    memberRoles {
+      ...MemberRoles
+    }
+  }
+}

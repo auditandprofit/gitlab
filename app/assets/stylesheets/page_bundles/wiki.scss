@@ -1,0 +1,187 @@
+@import 'mixins_and_variables_and_functions';
+@import 'components/content_editor';
+
+.wiki-page-header {
+  @include media-breakpoint-up(md) {
+    &.has-sidebar-toggle {
+      padding-right: 0;
+    }
+
+    button.sidebar-toggle {
+      display: none;
+    }
+  }
+}
+
+.right-sidebar.wiki-sidebar {
+  &.right-sidebar-collapsed {
+    display: none;
+  }
+
+  .sidebar-container {
+    padding-right: 100px;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  li > .wiki-list {
+    &:hover,
+    &.active {
+      @apply gl-bg-neutral-50 dark:gl-bg-neutral-900;
+    }
+
+    &:hover {
+      a {
+        color: var(--gl-text-color-default);
+      }
+    }
+
+    &:hover, &:focus, &:focus-within {
+      .wiki-list-create-child-button {
+        display: inline-flex;
+      }
+    }
+  }
+
+  ul.wiki-pages,
+  ul.wiki-pages li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  ul.wiki-pages ul {
+    padding-left: 20px;
+  }
+
+  .wiki-sidebar-custom-content {
+    h1 {
+      @apply gl-heading-3;
+    }
+
+    h2 {
+      @apply gl-heading-4;
+    }
+
+    h3 {
+      @apply gl-heading-5;
+    }
+
+    h1, h2, h3 {
+      @apply gl-mb-4;
+    }
+
+    h4, h5, h6 {
+      @apply gl-text-base gl-mt-0 gl-mb-2;
+    }
+
+    h5 {
+      @apply gl-font-semibold;
+    }
+
+    h6 {
+      @apply gl-font-normal;
+    }
+
+    ul, ol {
+      @apply gl-p-0 gl-mb-5;
+
+      ul, ol {
+        @apply gl-mb-0;
+      }
+
+      li {
+        @apply gl-ml-6 gl-leading-20;
+      }
+    }
+  }
+}
+
+ul.wiki-pages-list.content-list {
+  ul {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 15px;
+
+    li {
+      margin-top: $gl-spacing-scale-2;
+    }
+  }
+}
+
+.wiki-pages-list:not(.wiki-templates-list) {
+  margin-top: $gl-spacing-scale-4;
+
+  li {
+    border-bottom: 0 !important;
+    padding: 0 !important;
+  }
+
+  li, ul, .wiki-list {
+    margin-bottom: $gl-spacing-scale-3;
+  }
+}
+
+.wiki-form .markdown-area,
+.wiki-form .ProseMirror {
+  min-height: min(20vh, 320px);
+  max-height: 55vh;
+}
+
+.wiki-list {
+  .wiki-list-create-child-button {
+    display: none;
+  }
+
+  .wiki-list-expand-button {
+    display: none;
+  }
+
+  &.collapsed {
+    .wiki-list-collapse-button {
+      display: none;
+    }
+
+    .wiki-list-expand-button {
+      display: block;
+    }
+  }
+
+  &.collapsed + .wiki-pages-list-container {
+    display: none;
+  }
+}
+
+.drawio-editor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  border: 0;
+  z-index: 1100;
+  visibility: hidden;
+}
+
+@media print {
+  .top-bar-fixed {
+    display: none;
+  }
+
+  .content-wrapper {
+    padding: 0 !important;
+  }
+
+  .container-limited.limit-container-width {
+    max-width: 100%;
+  }
+}
+
+.discussion {
+  .toggle-replies-widget {
+    border: 0;
+  }
+}

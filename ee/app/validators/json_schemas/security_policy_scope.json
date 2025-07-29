@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Security policy scope",
+  "type": "object",
+  "properties": {
+    "compliance_frameworks": {
+      "description": "Specifies for which compliance frameworks this policy should be applied to.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "projects": {
+      "type": "object",
+      "description": "Specifies for which projects this policy should be applied to.",
+      "properties": {
+        "including": {
+          "type": "array",
+          "description": "Specifies projects where this policy should be applied to.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "description": "Specifies the ID of the project."
+              }
+            }
+          }
+        },
+        "excluding": {
+          "type": "array",
+          "description": "Specifies projects where this policy should not be applied to.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "description": "Specifies the ID of the project."
+              }
+            }
+          }
+        }
+      }
+    },
+    "groups": {
+      "type": "object",
+      "description": "Specifies for which groups this policy should be applied to.",
+      "properties": {
+        "including": {
+          "type": "array",
+          "description": "Specifies groups where this policy should be applied to.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "description": "Specifies the ID of the group."
+              }
+            }
+          }
+        },
+        "excluding": {
+          "type": "array",
+          "description": "Specifies groups where this policy should not be applied to.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "description": "Specifies the ID of the group."
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

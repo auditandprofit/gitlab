@@ -1,0 +1,10 @@
+mutation customFieldUnarchive($id: IssuablesCustomFieldID!) {
+  customFieldUnarchive(input: { id: $id }) {
+    customField {
+      id
+      name
+      fieldType
+    }
+    errors
+  }
+}

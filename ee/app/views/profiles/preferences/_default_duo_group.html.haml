@@ -1,0 +1,10 @@
+
+- return unless user_duo_namespace_assignment_options.any?
+
+= f.fields_for :user_preference do |preference|
+  .form-group.gl-mt-5.gl-mb-6
+    = preference.label :default_duo_add_on_assignment_id, class: 'label-bold' do
+      = s_('Preferences|Default GitLab Duo namespace')
+    = preference.select :default_duo_add_on_assignment_id, user_duo_namespace_assignment_options, {}, class: 'gl-form-select custom-select gl-form-input-xl gl-block'
+    .form-text.gl-text-subtle
+      = s_('Preferences|If you are assigned a GitLab Duo seat in multiple namespaces, you must select a default namespace.')

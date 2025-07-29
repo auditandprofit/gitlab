@@ -1,0 +1,15 @@
+---
+version: 1
+type: DORAChart
+data:
+  type: value_stream
+  query:
+    filters:
+      excludeMetrics:
+        - deployment_frequency
+        - lead_time_for_changes
+        - time_to_restore_service
+        - change_failure_rate
+        - vulnerability_critical
+        - vulnerability_high
+options: {}

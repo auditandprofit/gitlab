@@ -1,0 +1,68 @@
+- content_for :footer do
+  = render 'devise/shared/minimal_footer'
+
+= render "layouts/google_tag_manager_body"
+- @body_class = 'marketing-background-gradient'
+
+.row.marketing-styling
+  .col-md-8.gl-flex.gl-flex-col
+    %h1.gl-mt-0.gl-max-w-75
+      = s_('InProductMarketing|Get Started with GitLab')
+    %p.gl-text-lg.gl-max-w-75
+      = s_("InProductMarketing|Enjoy 60 days of full access to our best plan, after which you'll have access to our free tier forever. Upgrade to the best plan that suits you at any point - Premium or Ultimate.")
+    %p.gl-text-subtle
+      = sprite_icon('question-o', css_class: 'gl-mr-1')
+      = s_('InProductMarketing|Want to host GitLab on your servers?')
+      = link_to s_('InProductMarketing|Start with Self-Managed'), promo_url(path: '/free-trial', query: { hosted: 'self-managed'}),
+        data: { track_action: 'click_link', track_label: 'start_self-managed_trial' }
+
+    .signup-box.gl-max-w-75
+      .gl-mb-3.gl-p-6.gl-border-default.gl-border-1.gl-border-solid.gl-rounded-base.gl-bg-default
+        = render 'signup_box_form',
+          url: trial_registrations_path(::Onboarding::StatusPresenter.glm_tracking_params(params)),
+          button_text: _('Continue'),
+          button_class: 'black-btn'
+
+        - if social_signin_enabled?
+          .gl-pt-5
+            = render 'shared/divider', text: _('or')
+          .gl-flex.gl-justify-center
+            %label.gl-font-normal
+              = _('Continue with:')
+          .gl-flex.gl-gap-3.gl-justify-center
+            - popular_enabled_button_based_providers.each do |provider|
+              = render 'devise/shared/omniauth_provider_button',
+                href: omniauth_authorize_path(:user, provider, onboarding_status_presenter.trial_registration_omniauth_params),
+                provider: provider,
+                classes: 'js-track-omni-auth',
+                data: { provider: provider, track_action: "#{provider}_sso", track_label: preregistration_tracking_label }
+
+      .additional-links.gl-mt-6
+        = render 'devise/shared/sign_in_link',
+          wrapper_class: 'gl-pl-6 gl-text-subtle',
+          tracking_action: 'click_sign_in_from_registration_page',
+          tracking_label: preregistration_tracking_label
+
+  .col-md-4.lg:gl-flex.gl-flex-col.gl-mb-6.gl-items-center.gl-pr-8
+    %div
+      - ultimate_trial_value_props = [s_('InProductMarketing|One platform for Dev, Sec, and Ops teams'),
+      s_('InProductMarketing|End-to-end security and compliance'),
+      s_('InProductMarketing|Boost efficiency and collaboration'),
+      s_('InProductMarketing|Ship secure software faster'),
+      s_('InProductMarketing|GitLab Duo Enterprise: AI across the software development lifecycle')]
+
+      %h2.gl-text-size-h2-xl.gl-font-normal.gl-mb-6= s_('InProductMarketing|No credit card required.')
+
+      %ul.gl-pl-0.gl-mb-7.gl-pl-0.gl-text-default.check-mark-text
+        - ultimate_trial_value_props.each do |value_prop|
+          %li.gl-flex.gl-mb-3
+            %span.gl-mr-3.text-brand-purple-02= sprite_icon 'check', css_class: 'gl-icon check-marks'
+            = value_prop
+
+      .gl-text-default.gl-text-sm
+        = s_('InProductMarketing|Trusted by')
+
+      .gl-mt-5.gl-flex.gl-gap-6.gl-flex-wrap
+        - TrialRegistrationsHelper::TRUSTED_BY_LOGOS.each do |logo|
+          .gl-flex.gl-items-center
+            = image_tag(logo[:path], alt: logo[:alt], title: logo[:title], width: 100)

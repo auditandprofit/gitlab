@@ -1,0 +1,13 @@
+- page_title _("To-Do List")
+- add_page_specific_style 'page_bundles/todos'
+
+= render_two_factor_auth_recovery_settings_check
+= render_dashboard_ultimate_trial(current_user)
+= render_product_usage_data_collection_changes(current_user)
+
+- if current_user.todos.any?
+  = render ::Layouts::PageHeadingComponent.new(_('To-Do List'))
+  #js-todos-app-root{ data: { issues_dashboard_path: issues_dashboard_path(assignee_username: current_user.username),
+    merge_requests_dashboard_path: merge_requests_dashboard_path(assignee_username: current_user.username) } }
+- else
+  = render 'dashboard/todos/user_has_no_todos'

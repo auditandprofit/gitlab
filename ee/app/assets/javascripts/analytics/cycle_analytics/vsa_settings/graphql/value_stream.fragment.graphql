@@ -1,0 +1,22 @@
+fragment ValueStream on ValueStreamConnection {
+  nodes {
+    id
+    name
+    stages {
+      id
+      name
+      custom
+      hidden
+      startEventHtmlDescription
+      startEventIdentifier
+      startEventLabel {
+        id
+      }
+      endEventHtmlDescription
+      endEventIdentifier
+      endEventLabel {
+        id
+      }
+    }
+  }
+}

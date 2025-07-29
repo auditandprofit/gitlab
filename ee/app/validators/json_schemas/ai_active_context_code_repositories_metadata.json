@@ -1,0 +1,21 @@
+{
+  "description": "AI ActiveContext Code Repository metadata",
+  "type": "object",
+  "properties": {
+    "initial_indexing_last_queued_item": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Last item enqueued from initial indexing"
+    },
+    "last_error": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Most recent error"
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,9 @@
+!!! 5
+%html.subscriptions-layout-html{ class: user_application_color_mode, lang: I18n.locale }
+  = render 'layouts/head'
+  %body.gl-flex{ data: body_data }
+    = render "layouts/header/logo_with_title"
+    .container.gl-flex.gl-flex-col.gl-m-0.gl-px-0
+      = render "layouts/broadcast"
+      .gl-px-5
+        = yield

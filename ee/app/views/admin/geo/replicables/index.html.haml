@@ -1,0 +1,16 @@
+- add_to_breadcrumbs _('Geo Sites'), admin_geo_nodes_path
+- add_page_specific_style 'page_bundles/admin/geo_replicable'
+- page_title @replicator_class.replicable_title_plural
+
+- if Feature.enabled?(:geo_replicables_filtered_list_view, current_user)
+  = render ::Layouts::PageHeadingComponent.new(s_('Geo|Geo Replication - %{node_name}') % { node_name: @target_node.name }) do |c|
+    - c.with_description do
+      = s_('Geo|Review replication status, and resynchronize and reverify items with the primary site.')
+- else
+  = render "admin/geo/shared/replication_nav"
+
+#js-geo-replicable{ data: { "replicable_types" => replicable_types.to_json,
+  "replicator-class-data" => replicable_class_data(@replicator_class).to_json,
+  "geo-target-site-id" => @target_node&.id,
+  "geo-current-site-id" => @current_node&.id,
+  "replicable-base-path" => site_replicables_admin_geo_node_path(@target_node&.id, replicable_name_plural: @replicator_class.replicable_name_plural) } }

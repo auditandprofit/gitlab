@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Policy content for pipeline_execution_policy type",
+  "type": "object",
+  "properties": {
+    "content": {
+      "description": "Specifies the content of custom configuration.",
+      "type": "object",
+      "properties": {
+        "include": {
+          "type": "array",
+          "maxItems": 1,
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "properties": {
+              "project": {
+                "type": "string"
+              },
+              "file": {
+                "type": "string"
+              },
+              "ref": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "project",
+              "file"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "include"
+      ],
+      "additionalProperties": false
+    },
+    "pipeline_config_strategy": {
+      "description": "Defines the method for merging the policy configuration with the project pipeline. `inject_ci` preserves the project CI configuration and injects additional jobs from the policy. Having multiple policies enabled injects all jobs additively. `inject_policy` behaves like `inject_ci`, but allows custom policy stages to be injected too. `override_project_ci` replaces the project CI configuration and keeps only the policy jobs in the pipeline.",
+      "type": "string",
+      "enum": [
+        "inject_ci",
+        "inject_policy",
+        "override_project_ci"
+      ]
+    },
+    "suffix": {
+      "description": "Defines the method for policy job naming. `on_conflict` (default) applies a unique suffix when a job with the same name is detected in the pipeline. A job called `policy-job` will be added into the pipeline as `policy-job:policy-<security-policy-project-id>-<policy-index>`. `never` is a strict mode which results in a pipeline failure if job names are not unique.",
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": [
+            "never",
+            "on_conflict"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "skip_ci": {
+      "description": "Defines whether it should be allowed to use skip_ci directive when policy is enforced.",
+      "type": "object",
+      "properties": {
+        "allowed": {
+          "type": "boolean"
+        },
+        "allowlist": {
+          "type": "object",
+          "description": "A list of user IDs that are allowed to use skip_ci if it is generally not allowed.",
+          "properties": {
+            "users": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "allowed"
+      ]
+    },
+    "variables_override": {
+      "description": "Defines whether variables can be overridden and the exceptions.",
+      "type": "object",
+      "properties": {
+        "allowed": {
+          "type": "boolean"
+        },
+        "exceptions": {
+          "type": "array",
+          "description": "A list of variables that are excepted from the enforcement.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "allowed"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

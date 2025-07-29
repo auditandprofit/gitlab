@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Application settings for importers and exporters",
+  "type": "object",
+  "properties": {
+    "silent_admin_exports_enabled": {
+      "type": "boolean"
+    },
+    "allow_contribution_mapping_to_admins": {
+      "type": "boolean"
+    },
+    "allow_bypass_placeholder_confirmation": {
+      "type": "boolean"
+    },
+    "relation_export_batch_size": {
+      "type": "integer"
+    }
+  },
+  "additionalProperties": false
+}

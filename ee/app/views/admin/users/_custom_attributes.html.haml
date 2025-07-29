@@ -1,0 +1,26 @@
+- return if @user.new_record?
+
+.settings-section
+  .settings-sticky-header
+    .settings-sticky-header-inner
+      %h4.gl-my-0
+        = _('Custom Attributes')
+
+  = f.fields_for :custom_attributes do |ff|
+    - if ff.object.key == UserCustomAttribute::ARKOSE_RISK_BAND
+      .gl-form-group{ role: 'group' }
+        = ff.label :value, ff.object.key.humanize, class: 'gl-block col-form-label'
+        = ff.select :value, Arkose::VerifyResponse::ARKOSE_RISK_BANDS, { allow_blank: false }, class: 'form-control'
+
+  - if @user.persisted? && @user.signup_identity_verification_enabled?
+    .gl-form-group{ role: 'group' }
+      = render Pajamas::AlertComponent.new(variant: :info, dismissible: false, alert_options: { class: 'gl-mb-5' }, title: _('Identity verification exemption')) do |c|
+        - c.with_body do
+          - if @user.identity_verification_exempt?
+            %p= s_('This user is currently exempt from identity verification. Remove the exemption using the button below.')
+            = render Pajamas::ButtonComponent.new(variant: :danger, href: destroy_identity_verification_exemption_admin_user_path(@user), method: :delete) do
+              = s_('Remove identity verification exemption')
+          - else
+            %p= s_('To allow the user to confirm their identity by only confirming an email address and skip phone number and/or credit card verification, create an identity verification exemption using the button below.')
+            = render Pajamas::ButtonComponent.new(variant: :confirm, href: identity_verification_exemption_admin_user_path(@user), method: :post) do
+              = s_('Create identity verification exemption')

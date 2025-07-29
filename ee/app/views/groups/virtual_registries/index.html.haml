@@ -1,0 +1,37 @@
+- title = s_('VirtualRegistry|Virtual registry')
+- page_title title
+- learn_more_path = local_assigns.fetch(:learn_more_path, help_page_path('user/packages/virtual_registry/_index.md'))
+- learn_more_link = link_to _('Learn more.'), learn_more_path
+- registry_data = registry_types(@group, @registry_types_with_counts)
+- has_registry_with_count = @registry_types_with_counts.any? { |type, count| count > 0 }
+
+= render ::Layouts::PageHeadingComponent.new(title)
+
+= render ::Layouts::CrudComponent.new(s_('VirtualRegistry|Registry types'),
+  options: { class: 'gl-mt-5' }) do |c|
+  - c.with_body do
+    - if has_registry_with_count
+      %ul.content-list
+        - registry_data.each_value do |data|
+          %li.gl-items-center{ class: '!gl-flex' }
+            .gl-flex.gl-items-center.gl-grow
+              = image_tag data[:image_path], size: '48', class: 'gl-bg-transparent dark:gl-bg-gray-900 gl-border-solid gl-border-1 gl-border-default gl-rounded-base', aria: { hidden: true }
+              .sm:gl-flex.gl-ml-4
+                .gl-font-bold= data[:type_name]
+                .gl-mx-3.gl-hidden.sm:gl-inline ·
+                = render Pajamas::ButtonComponent.new(variant: :link, href: data[:landing_page_path]) do
+                  = n_('View %d registry', 'View %d registries', data[:count]) % data[:count]
+            - if can_create_virtual_registry?(@group)
+              = render Pajamas::ButtonComponent.new(size: :small, href: data[:new_page_path]) do
+                = s_('VirtualRegistry|Create registry')
+
+    - else
+      = render Pajamas::EmptyStateComponent.new(svg_path: 'illustrations/empty-state/empty-package-md.svg',
+        title: s_('VirtualRegistry|Get started with virtual registries')) do |c|
+        - c.with_description do
+          = s_('VirtualRegistry|Manage packages across multiple sources and streamline development workflows. %{learn_more_link}').html_safe % { learn_more_link: learn_more_link }
+          // When we implement multiple registry types, this empty state action button should be removed
+          - if can_create_virtual_registry?(@group)
+            .gl-mt-4
+              = render Pajamas::ButtonComponent.new(variant: :confirm, href: new_group_virtual_registries_maven_registry_path(@group)) do
+                = s_('VirtualRegistry|Create Maven registry')

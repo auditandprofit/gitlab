@@ -1,0 +1,35 @@
+fragment CatalogResourceFields on CiCatalogResource {
+  id
+  description
+  fullPath
+  icon
+  last30DayUsageCount
+  name
+  starCount
+  starrersPath
+  topics
+  verificationLevel
+  archived
+  versions(first: 1) {
+    nodes {
+      id
+      components {
+        nodes {
+          id
+          name
+        }
+      }
+      name
+      path
+      createdAt
+      author {
+        id
+        name
+        state
+        webUrl
+      }
+    }
+  }
+  visibilityLevel
+  webPath
+}

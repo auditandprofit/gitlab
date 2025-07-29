@@ -1,0 +1,9 @@
+fragment BaseAiCatalogItem on AiCatalogItem {
+  id
+  createdAt
+  itemType
+  description
+  name
+  public
+  __typename
+}

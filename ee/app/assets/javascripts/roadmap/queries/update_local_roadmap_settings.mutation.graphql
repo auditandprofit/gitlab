@@ -1,0 +1,7 @@
+#import './local_roadmap_settings.fragment.graphql'
+
+mutation updateLocalRoadmapSettings($input: LocalRoadmapSettingsInput!) {
+  updateLocalRoadmapSettings(input: $input) @client {
+    ...LocalSettings
+  }
+}

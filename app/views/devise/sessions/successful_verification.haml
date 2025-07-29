@@ -1,0 +1,5 @@
+- experiment(:lightweight_trial_registration_redesign, actor: current_user) do |e|
+  - e.control do
+    = render 'devise/sessions/successful_verification', local_assigns
+  - e.candidate do
+    = render 'devise/sessions/successful_verification_lightweight', local_assigns

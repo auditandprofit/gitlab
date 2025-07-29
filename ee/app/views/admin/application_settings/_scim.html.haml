@@ -1,0 +1,9 @@
+- return unless License.feature_available?(:instance_level_scim)
+
+= render ::Layouts::SettingsBlockComponent.new( s_('SCIM|SCIM Token'),
+  id: 'js-scim-token-settings',
+  expanded: expanded_by_default?) do |c|
+  - c.with_description do
+    = s_('SCIM|System for Cross-Domain Identity Management.')
+  - c.with_body do
+    #js-scim-token-app{ data: { endpoint_url: @scim_token_url, generate_token_path: admin_application_settings_scim_oauth_path } }

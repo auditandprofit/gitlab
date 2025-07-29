@@ -1,0 +1,8 @@
+---
+version: 1
+type: MergeRequestsThroughputTable
+data:
+  type: merge_requests
+  query:
+    dateRange: 365d
+options: {}

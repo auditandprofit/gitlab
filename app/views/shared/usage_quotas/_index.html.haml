@@ -1,0 +1,14 @@
+- @force_desktop_expanded_sidebar = true
+- page_title s_("UsageQuota|Usage")
+
+= yield :usage_quotas_alerts
+
+= render ::Layouts::PageHeadingComponent.new(s_('UsageQuota|Usage Quotas')) do |c|
+  - c.with_description do
+    = yield :usage_quotas_subtitle
+
+#js-usage-quotas-view
+  .gl-text-lg.text-center
+    %span.gl-mr-1= s_('UsageQuota|Loading Usage Quotas tabs')
+    = render Pajamas::SpinnerComponent.new(inline: true, size: :md)
+  = yield :usage_quotas_tabs

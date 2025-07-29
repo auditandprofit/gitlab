@@ -1,0 +1,6 @@
+%p{ style: 'font-size:18px; text-align:center;  line-height:1.4;' }
+  = safe_format(s_('Vulnerabilities|The vulnerabilities list was successfully exported for %{exportable}.'), { exportable: vulnerabilities_exportable_link(@export) })
+  - download_link = link_to('', vulnerabilities_export_download_url(@export))
+  - tag = tag_pair(download_link, :link_start, :link_end)
+  = safe_format(s_('Vulnerabilities|%{link_start}Download the export%{link_end}.'), tag)
+  = s_('Vulnerabilities|This link will expire in %{number} days.') % { number: @expiration_days }

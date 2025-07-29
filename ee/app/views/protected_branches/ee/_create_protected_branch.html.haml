@@ -1,0 +1,10 @@
+- content_for :merge_access_levels do
+  .merge_access_levels-container
+    .js-allowed-to-merge{ data: { filter: true } }
+- content_for :push_access_levels do
+  .push_access_levels-container
+    .js-allowed-to-push{ data: { filter: true } }
+  .form-text.gl-text-subtle
+    = s_('ProtectedBranch|You can add only groups that have this project shared. %{learn_more_link}').html_safe % { learn_more_link: link_to(_('Learn more.'), help_page_path('api/protected_branches.md')) }
+
+= render 'protected_branches/shared/create_protected_branch', protected_branch_entity: protected_branch_entity

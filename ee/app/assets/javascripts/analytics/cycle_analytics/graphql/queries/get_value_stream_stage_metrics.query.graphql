@@ -1,0 +1,29 @@
+#import "../fragments/value_stream_stage_metrics.fragment.graphql"
+
+query getValueStreamStageMetrics(
+  $fullPath: ID!
+  $valueStreamId: ID!
+  $stageId: ID!
+  $startDate: Date!
+  $endDate: Date!
+  $endCursor: String = ""
+  $assigneeUsernames: [String!]
+  $authorUsername: String
+  $milestoneTitle: String
+  $labelNames: [String!]
+  $not: NegatedValueStreamAnalyticsIssuableFilterInput
+  $isProject: Boolean = false
+) {
+  group(fullPath: $fullPath) @skip(if: $isProject) {
+    id
+    valueStreams(id: $valueStreamId) {
+      ...ValueStreamStageMetrics
+    }
+  }
+  project(fullPath: $fullPath) @include(if: $isProject) {
+    id
+    valueStreams(id: $valueStreamId) {
+      ...ValueStreamStageMetrics
+    }
+  }
+}

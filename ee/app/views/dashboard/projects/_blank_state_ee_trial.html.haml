@@ -1,0 +1,6 @@
+-# EE:Self Managed
+= render Onboarding::ActionCardComponent.new(title: _('Unlock more features with GitLab Ultimate'),
+  description: _('GitLab is free to use. Many features for larger teams are part of our %{link_start}paid products%{link_end}. You can try Ultimate for free without any obligation or payment details.').html_safe % { link_start: "<a href='#{promo_pricing_url}'>".html_safe, link_end: '</a>'.html_safe },
+  icon: 'lock') do
+  = link_button_to new_trial_url, variant: :confirm do
+    = _('Start free trial')

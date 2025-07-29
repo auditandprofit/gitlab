@@ -1,0 +1,16 @@
+---
+version: 1
+type: DataTable
+data:
+  type: cube_analytics
+  query:
+    measures:
+      - Sessions.count
+    dimensions:
+      - Sessions.agentName
+      - Sessions.agentVersion
+    limit: 100
+    timezone: UTC
+    filters: []
+    timeDimensions: []
+options: {}

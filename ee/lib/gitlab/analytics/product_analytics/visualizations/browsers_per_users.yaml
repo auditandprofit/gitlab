@@ -1,0 +1,16 @@
+---
+version: 1
+type: DataTable
+data:
+  type: cube_analytics
+  query:
+    measures:
+      - TrackedEvents.uniqueUsersCount
+    dimensions:
+      - TrackedEvents.agentName
+      - TrackedEvents.agentVersion
+    limit: 100
+    timezone: UTC
+    filters: []
+    timeDimensions: []
+options: {}

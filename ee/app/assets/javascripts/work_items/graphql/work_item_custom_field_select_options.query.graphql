@@ -1,0 +1,9 @@
+query customFieldSelectOptions($fieldId: IssuablesCustomFieldID!) {
+  customField(id: $fieldId) {
+    id
+    selectOptions {
+      id
+      value
+    }
+  }
+}

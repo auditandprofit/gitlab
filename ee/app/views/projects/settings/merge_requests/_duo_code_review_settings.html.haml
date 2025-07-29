@@ -1,0 +1,11 @@
+- return unless @project.duo_enterprise_features_available?
+
+= render ::Layouts::SettingsSectionComponent.new(s_('DuoCodeReview|GitLab Duo Code Review'),
+  id: 'merge-request-duo-code-review-settings',
+  options: { class: 'merge-requests-feature' }) do |c|
+  - c.with_body do
+    = gitlab_ui_form_for @project, url: project_settings_merge_requests_path(@project), authenticity_token: true do |f|
+      .form-group
+        = f.fields_for :project_setting do |settings|
+          = settings.gitlab_ui_checkbox_component :auto_duo_code_review_enabled, s_('ProjectSettings|Enable automatic reviews by GitLab Duo'), help_text: s_("ProjectSettings|GitLab Duo reviews new merge requests immediately, unless they are drafts or contain no changes.")
+      = f.submit _('Save changes'), pajamas_button: true

@@ -1,0 +1,8 @@
+query namespaceMetadata($fullPath: ID!) {
+  namespace(fullPath: $fullPath) {
+    id
+    linkPaths {
+      groupIssues
+    }
+  }
+}

@@ -1,0 +1,35 @@
+- breadcrumb_title _("Targeted Messages")
+- page_title _("Targeted Messages")
+
+= render ::Layouts::PageHeadingComponent.new(_("Targeted Messages"))
+- component_params = { card_options: { class: 'gl-h-full' }, header_options: { class: 'gl-flex gl-justify-between' }, body_options: { class: 'gl-h-full gl-pt-0' } }
+= render Pajamas::CardComponent.new(**component_params) do |c|
+  - c.with_header do
+    %h3.gl-self-center.gl-text-base.gl-inline-flex.gl-gap-2.gl-items-center.gl-m-0
+      = s_('AdminArea|Messages')
+      = render Pajamas::BadgeComponent.new(@targeted_messages.count, variant: :muted)
+    = render Pajamas::ButtonComponent.new(href: new_admin_targeted_message_path, size: :small) do
+      = s_('AdminArea|Add new message')
+  - c.with_body do
+    .gl-grid.gl-grid-cols-4.gl-py-4.gl-border-b.gl-font-bold
+      .gl-text-left
+        = _('ID')
+      .gl-text-left
+        = _('Target type')
+      .gl-text-left
+        = _('Created at')
+      .gl-text-left
+    - @targeted_messages.each do |targeted_message|
+      .gl-grid.gl-grid-cols-4.gl-py-4
+        .gl-text-left
+          = targeted_message.id
+        .gl-text-left
+          = targeted_message.target_type.humanize
+        .gl-text-left
+          = targeted_message.created_at.strftime('%B %d, %Y at %H:%M %Z')
+        .gl-text-right
+          = render Pajamas::ButtonComponent.new(href: edit_admin_targeted_message_path(targeted_message),
+            variant: :default,
+            category: :tertiary,
+            icon: 'pencil',
+            size: :small)

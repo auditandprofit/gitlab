@@ -1,0 +1,37 @@
+#import "~/graphql_shared/fragments/page_info.fragment.graphql"
+
+fragment ValueStreamStageMetrics on ValueStreamConnection {
+  # @graphql-eslint/eslint-plugin@4.0.0 reports missing IDs in `FragmentDefinition`. For now, we are
+  # ignoring the newly uncovered error on this fragment. Please consider addressing the violation
+  # if you are modifying this file and it turns out selecting the ID makes sense here.
+  # eslint-disable-next-line @graphql-eslint/require-selections
+  nodes {
+    stages(id: $stageId) {
+      id
+      name
+      metrics(
+        timeframe: { start: $startDate, end: $endDate }
+        assigneeUsernames: $assigneeUsernames
+        authorUsername: $authorUsername
+        milestoneTitle: $milestoneTitle
+        labelNames: $labelNames
+        not: $not
+      ) {
+        items(sort: END_EVENT_ASC, first: 100, after: $endCursor) {
+          edges {
+            node {
+              durationInMilliseconds
+              endEventTimestamp
+              record {
+                __typename
+              }
+            }
+          }
+          pageInfo {
+            ...PageInfo
+          }
+        }
+      }
+    }
+  }
+}

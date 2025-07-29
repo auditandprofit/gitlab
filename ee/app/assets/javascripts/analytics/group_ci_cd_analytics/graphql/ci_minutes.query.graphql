@@ -1,0 +1,9 @@
+query getCiMinutesUsageByNamespace($namespaceId: NamespaceID) {
+  ciMinutesUsage(namespaceId: $namespaceId) {
+    nodes {
+      month
+      monthIso8601
+      sharedRunnersDuration
+    }
+  }
+}

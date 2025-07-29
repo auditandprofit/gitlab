@@ -1,0 +1,10 @@
+mutation updateAbuseReportNote($input: UpdateAbuseReportNoteInput!) {
+  updateAbuseReportNote(input: $input) {
+    errors
+    note {
+      id
+      body
+      bodyHtml
+    }
+  }
+}

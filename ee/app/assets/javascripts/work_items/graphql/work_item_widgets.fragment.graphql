@@ -1,0 +1,88 @@
+#import "./work_item_status.fragment.graphql"
+#import "~/work_items/graphql/base_work_item_widgets.fragment.graphql"
+
+fragment WorkItemWidgets on WorkItemWidget {
+  type
+  ...BaseWorkItemWidgets
+  ... on WorkItemWidgetLabels {
+    allowsScopedLabels
+    labels {
+      nodes {
+        ...Label
+      }
+    }
+  }
+  ... on WorkItemWidgetStartAndDueDate {
+    dueDate
+    startDate
+    rollUp
+    isFixed
+  }
+  ... on WorkItemWidgetWeight {
+    weight
+    rolledUpWeight
+    rolledUpCompletedWeight
+    widgetDefinition {
+      editable
+      rollUp
+    }
+  }
+  ... on WorkItemWidgetProgress {
+    progress
+    updatedAt
+  }
+  ... on WorkItemWidgetIteration {
+    iteration {
+      id
+      title
+      startDate
+      dueDate
+      webUrl
+      iterationCadence {
+        id
+        title
+      }
+    }
+  }
+  ... on WorkItemWidgetHealthStatus {
+    healthStatus
+    rolledUpHealthStatus {
+      count
+      healthStatus
+    }
+  }
+  ... on WorkItemWidgetColor {
+    color
+    textColor
+  }
+  ... on WorkItemWidgetLinkedItems {
+    blockedByCount
+    blockingCount
+  }
+  ... on WorkItemWidgetCustomFields {
+    customFieldValues {
+      customField {
+        id
+        name
+        fieldType
+      }
+      ... on WorkItemNumberFieldValue {
+        value
+      }
+      ... on WorkItemTextFieldValue {
+        value
+      }
+      ... on WorkItemSelectFieldValue {
+        selectedOptions {
+          id
+          value
+        }
+      }
+    }
+  }
+  ... on WorkItemWidgetStatus {
+    status {
+      ...WorkItemStatusFragment
+    }
+  }
+}

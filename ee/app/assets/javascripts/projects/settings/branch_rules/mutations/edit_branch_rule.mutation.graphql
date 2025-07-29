@@ -1,0 +1,40 @@
+mutation editBrachRuleEE($input: BranchRuleUpdateInput!) {
+  branchRuleUpdate(input: $input) {
+    errors
+    branchRule {
+      id
+      name
+      branchProtection {
+        allowForcePush
+        codeOwnerApprovalRequired
+        mergeAccessLevels {
+          nodes {
+            accessLevel
+            accessLevelDescription
+            user {
+              id
+            }
+            group {
+              id
+            }
+          }
+        }
+        pushAccessLevels {
+          nodes {
+            accessLevel
+            accessLevelDescription
+            user {
+              id
+            }
+            group {
+              id
+            }
+            deployKey {
+              id
+            }
+          }
+        }
+      }
+    }
+  }
+}

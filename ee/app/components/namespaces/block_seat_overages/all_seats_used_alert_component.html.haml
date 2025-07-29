@@ -1,0 +1,13 @@
+%div
+  = render Pajamas::AlertComponent.new(alert_options: { class: 'js-all-seats-used',
+                                                        data: { dismiss_endpoint: group_callouts_path,
+                                                        feature_id: EE::Users::GroupCalloutsHelper::ALL_SEATS_USED_ALERT,
+                                                        group_id: root_namespace.id,
+                                                        testid: 'all-seats-used-alert' }},
+                                                        title: _('No more seats in subscription'),
+                                                        variant: :warning) do |c|
+    - c.with_body do
+      %p= _('Your namespace has used all the seats in your subscription and users can no longer be invited or added to the namespace.')
+    - c.with_actions do
+      = render Pajamas::ButtonComponent.new(variant: :confirm, href: help_page_path('subscriptions/manage_users_and_seats.md', anchor: 'buy-more-seats')) do
+        = s_('Purchase more seats')

@@ -1,0 +1,10 @@
+- return unless Feature.enabled?(:group_owner_placeholder_confirmation_bypass, @group)
+- return unless @group.root? && Gitlab.com?
+
+- domain_verification_available = @group.domain_verification_available?
+
+%h5= s_('BulkImports|Placeholder user confirmation')
+.form-group.gl-mt-4.gl-mb-6{ role: 'group' }
+  = f.gitlab_ui_checkbox_component :allow_enterprise_bypass_placeholder_confirmation,
+    "#{s_('UserMapping|Placeholders can be reassigned to enterprise users without user confirmation.')} #{link_to _('Learn more'), help_page_path('user/project/import/_index.md', anchor: 'reassign-contributions-and-memberships'), target: '_blank', rel: 'noopener noreferrer'}".html_safe,
+    checkbox_options: { disabled: !domain_verification_available }

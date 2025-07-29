@@ -1,0 +1,76 @@
+#import "~/graphql_shared/fragments/label.fragment.graphql"
+#import "~/graphql_shared/fragments/user.fragment.graphql"
+#import "~/work_items/graphql/milestone.fragment.graphql"
+#import "./work_item_status.fragment.graphql"
+
+fragment WorkItemMetadataWidgets on WorkItemWidget {
+  type
+  ... on WorkItemWidgetStartAndDueDate {
+    dueDate
+    startDate
+  }
+  ... on WorkItemWidgetWeight {
+    weight
+    rolledUpWeight
+    widgetDefinition {
+      editable
+      rollUp
+    }
+  }
+  ... on WorkItemWidgetProgress {
+    progress
+    updatedAt
+  }
+  ... on WorkItemWidgetHealthStatus {
+    healthStatus
+    rolledUpHealthStatus {
+      count
+      healthStatus
+    }
+  }
+  ... on WorkItemWidgetMilestone {
+    milestone {
+      ...MilestoneFragment
+    }
+  }
+  ... on WorkItemWidgetAssignees {
+    allowsMultipleAssignees
+    canInviteMembers
+    assignees {
+      nodes {
+        ...User
+      }
+    }
+  }
+  ... on WorkItemWidgetLabels {
+    allowsScopedLabels
+    labels {
+      nodes {
+        ...Label
+      }
+    }
+  }
+  ... on WorkItemWidgetLinkedItems {
+    blockedByCount
+    blockingCount
+  }
+  ... on WorkItemWidgetIteration {
+    iteration {
+      id
+      title
+      startDate
+      dueDate
+      webUrl
+      iterationCadence {
+        id
+        title
+      }
+    }
+  }
+
+  ... on WorkItemWidgetStatus {
+    status {
+      ...WorkItemStatusFragment
+    }
+  }
+}

@@ -1,0 +1,4 @@
+- project = local_assigns.fetch(:project)
+- can_view_dashboard = can?(current_user, :read_compliance_adherence_report, project)
+- if show_compliance_frameworks_info?(project)
+  #js-compliance-info{ data: {project_path: project.full_path, compliance_center_path: compliance_center_path(project), can_view_dashboard: can_view_dashboard } }

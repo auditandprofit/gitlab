@@ -1,0 +1,5 @@
+mutation destroyAiAgent($projectPath: ID!, $agentId: AiAgentID!) {
+  aiAgentDestroy(input: { projectPath: $projectPath, agentId: $agentId }) {
+    errors
+  }
+}

@@ -1,0 +1,4 @@
+- return unless show_explore_duo_core_banner?(@merge_request, namespace)
+- callout_feature_data = { calloutFeatureName: ::Users::CalloutsHelper::EXPLORE_DUO_CORE_BANNER }
+
+#js-explore-duo-core-banner{ "data-view-model": callout_feature_data.to_json }

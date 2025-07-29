@@ -1,0 +1,5 @@
+- page_title s_("AdminSelfHostedModels|GitLab Duo Self-Hosted")
+- add_to_breadcrumbs _("GitLab Duo"), admin_gitlab_duo_path
+- add_page_specific_style 'page_bundles/settings'
+
+#js-duo-self-hosted{ data: { view_model: { basePath: admin_gitlab_duo_self_hosted_index_path, modelOptions: model_choices_as_options, betaModelsEnabled: beta_models_enabled?, duoConfigurationSettingsPath: admin_gitlab_duo_configuration_index_url }.to_json } }

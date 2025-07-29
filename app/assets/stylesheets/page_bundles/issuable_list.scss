@@ -1,0 +1,111 @@
+@import 'mixins_and_variables_and_functions';
+
+.issuable-list {
+  li {
+    .issuable-info-container {
+      flex: 1;
+      display: flex;
+    }
+
+    .issuable-main-info {
+      flex: 1 auto;
+      margin-right: 10px;
+      min-width: 0;
+
+      .issue-weight-icon,
+      .issue-estimate-icon {
+        vertical-align: sub;
+      }
+    }
+
+    .issuable-info,
+    .issuable-meta {
+      @apply gl-text-sm;
+    }
+
+    .issuable-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      flex: 1 0 auto;
+
+      .controls {
+        margin-bottom: 2px;
+        line-height: 20px;
+        padding: 0;
+      }
+    }
+
+    @include media-breakpoint-down(xs) {
+      .issuable-meta {
+        .controls li {
+          margin-right: 0;
+        }
+      }
+    }
+
+    .issue-check {
+      min-width: 15px;
+    }
+
+    .issuable-milestone,
+    .issuable-info,
+    .task-status,
+    .issuable-timestamp {
+      font-weight: $gl-font-weight-normal;
+      @apply gl-text-subtle;
+
+      a {
+        @apply gl-text-default;
+      }
+
+      // stylelint-disable-next-line gitlab/no-gl-class
+      .gl-label-link {
+        color: inherit;
+
+        &:hover {
+          text-decoration: none;
+
+          // stylelint-disable-next-line gitlab/no-gl-class
+          .gl-label-text:last-of-type {
+            text-decoration: underline;
+          }
+        }
+      }
+
+      .milestone {
+        @apply gl-text-subtle;
+      }
+    }
+
+    @media(max-width: map-get($grid-breakpoints, lg)-1) {
+      .task-status,
+      .issuable-due-date,
+      .issuable-weight,
+      .project-ref-path {
+        display: none;
+      }
+    }
+  }
+}
+
+.issuable-list li,
+.issuable-info-container .controls {
+  .avatar-counter {
+    padding-left: $gl-spacing-scale-1;
+    padding-right: $gl-spacing-scale-2;
+    height: $gl-spacing-scale-5;
+    min-width: $gl-spacing-scale-5;
+    line-height: 14px;
+  }
+}
+
+.merge-request {
+  .issuable-info-container .controls {
+    .avatar-counter {
+      line-height: $gl-line-height-16;
+      border: 0;
+    }
+  }
+}
+

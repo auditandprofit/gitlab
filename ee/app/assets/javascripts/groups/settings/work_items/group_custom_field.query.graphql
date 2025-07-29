@@ -1,0 +1,21 @@
+query groupCustomField($fullPath: ID!, $fieldId: IssuablesCustomFieldID!) {
+  group(fullPath: $fullPath) {
+    id
+    customField(id: $fieldId) {
+      id
+      name
+      fieldType
+      active
+      createdAt
+      updatedAt
+      selectOptions {
+        id
+        value
+      }
+      workItemTypes {
+        id
+        name
+      }
+    }
+  }
+}

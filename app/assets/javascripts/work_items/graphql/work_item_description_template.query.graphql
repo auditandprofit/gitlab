@@ -1,0 +1,5 @@
+query workItemDescriptionTemplate($name: String!, $projectId: Int!) {
+  workItemDescriptionTemplateContent(templateContentInput: { name: $name, projectId: $projectId }) {
+    content
+  }
+}

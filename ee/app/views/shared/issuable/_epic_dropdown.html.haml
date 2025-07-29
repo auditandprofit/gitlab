@@ -1,0 +1,10 @@
+- parent = local_assigns.fetch(:parent)
+
+- return unless parent&.feature_available?(:epics)
+
+.block
+  .title
+    = _('Epic')
+  .filter-item
+    .js-epic-dropdown-root{ data: { group_path: parent.full_path } }
+  %input{ id: 'issue_epic_id', type: 'hidden', name: 'update[epic_id]' }

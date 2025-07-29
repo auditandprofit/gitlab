@@ -1,0 +1,18 @@
+query getSelfHostedModelById($id: AiSelfHostedModelID) {
+  aiSelfHostedModels(id: $id) {
+    nodes {
+      id
+      name
+      model
+      modelDisplayName
+      identifier
+      endpoint
+      apiToken
+      featureSettings {
+        nodes {
+          feature
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+.info-well {
+  @apply gl-bg-subtle gl-text-default gl-border gl-border-section gl-rounded-base;
+
+  .icon-container {
+    display: inline-block;
+    margin: 0 0.5rem 0 0.25rem;
+
+    svg {
+      position: relative;
+      top: 2px;
+      height: 16px;
+      width: 16px;
+    }
+
+    &.commit-icon {
+      svg {
+        path {
+          @apply gl-fill-icon-default;
+        }
+      }
+    }
+  }
+
+  .branches {
+    display: inline;
+  }
+
+  svg {
+    vertical-align: text-top;
+  }
+}

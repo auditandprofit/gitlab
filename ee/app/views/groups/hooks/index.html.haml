@@ -1,0 +1,13 @@
+- page_title @hook.pluralized_name
+- @force_desktop_expanded_sidebar = true
+- feature_available = @group.licensed_feature_available?(:group_webhooks)
+- @hide_search_settings = !feature_available
+
+- if feature_available
+  = render ::Layouts::SettingsSectionComponent.new(page_title) do |c|
+    - c.with_description do
+      = render 'shared/web_hooks/description', hook: @hook
+    - c.with_body do
+      = render 'shared/web_hooks/index', hooks: @hooks, title: @hook.pluralized_name, partial: 'shared/web_hooks/form', url: polymorphic_path([@group, :hooks])
+- elsif show_promotions?
+  = render 'shared/promotions/promote_group_webhooks'

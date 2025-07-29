@@ -1,0 +1,31 @@
+mutation chatWithNamespace(
+  $question: String!
+  $resourceId: AiModelID!
+  $agentVersionId: AiAgentVersionID
+  $clientSubscriptionId: String
+  $projectId: ProjectID
+  $currentFileContext: AiCurrentFileInput
+  $conversationType: AiConversationsThreadsConversationType
+  $threadId: AiConversationThreadID
+  $rootNamespaceId: NamespaceID
+) {
+  aiAction(
+    input: {
+      chat: {
+        resourceId: $resourceId
+        content: $question
+        agentVersionId: $agentVersionId
+        currentFile: $currentFileContext
+      }
+      projectId: $projectId
+      clientSubscriptionId: $clientSubscriptionId
+      conversationType: $conversationType
+      threadId: $threadId
+      rootNamespaceId: $rootNamespaceId
+    }
+  ) {
+    requestId
+    errors
+    threadId
+  }
+}

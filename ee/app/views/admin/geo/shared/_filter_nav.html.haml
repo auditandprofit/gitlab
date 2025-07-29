@@ -1,0 +1,20 @@
+- action_buttons = local_assigns[:action_buttons] ? action_buttons : []
+- filter_by = params[:sync_status] || []
+
+%nav.bg-secondary.border-bottom.border-secondary-100.p-3
+  .row.gl-flex.flex-column.flex-sm-row
+    .col
+      .sm:gl-flex.-gl-mx-1
+        = gl_redirect_listbox_tag geo_filter_nav_options(replicable_controller, replicable_name), filter_by, class: 'gl-px-2 gl-my-2 my-sm-0 gl-w-full'
+        .replicable-search.px-1.my-1.my-sm-0.gl-w-full
+          = form_tag filter_projects_path, method: :get do |f|
+            .gl-search-box-by-type
+              = sprite_icon('search', css_class: 'gl-search-box-by-type-search-icon gl-icon')
+              = search_field_tag :name, params[:name], placeholder: _('Filter by name'), class: "gl-form-input form-control gl-search-box-by-type-input", spellcheck: false, autofocus: true, data: { testid: 'geo-projects-filter-field' }
+
+            = render_if_exists 'shared/projects/search_fields'
+            = submit_tag nil, class: '!gl-hidden'
+
+    .col.col-sm-5.gl-flex.gl-justify-end.my-1.my-sm-0.gl-w-full
+      - action_buttons.each do |action_button|
+        = action_button

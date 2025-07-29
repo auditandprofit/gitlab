@@ -1,0 +1,7 @@
+- issue = local_assigns.fetch(:issue)
+
+- if issue.weight
+  %span.issuable-weight.gl-hidden.sm:gl-inline-block.gl-mr-2.has-tooltip{ data: { container: 'body', testid: 'weight' }, title: _('Weight') }
+    &nbsp;
+    = sprite_icon('weight', css_class: 'issue-weight-icon')
+    = issue.weight

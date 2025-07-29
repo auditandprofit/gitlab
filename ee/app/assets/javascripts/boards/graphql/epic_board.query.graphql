@@ -1,0 +1,10 @@
+#import "./epic_board.fragment.graphql"
+
+query EpicBoard($fullPath: ID!, $boardId: BoardsEpicBoardID!) {
+  workspace: group(fullPath: $fullPath) {
+    id
+    board: epicBoard(id: $boardId) {
+      ...EpicBoardFragment
+    }
+  }
+}

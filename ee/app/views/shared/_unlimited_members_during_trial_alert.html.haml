@@ -1,0 +1,5 @@
+- content_for :page_level_alert do
+  = render Namespaces::FreeUserCap::UnlimitedMembersDuringTrialAlertComponent.new(namespace: resource.root_ancestor,
+    user: current_user, wrapper_class: [container_class, @content_class, '!gl-pt-5'],
+    hide_invite_members_button: content_for(:hide_invite_members_button).present?,
+    hide_explore_paid_plans_button: content_for(:hide_explore_paid_plans_button).present?)

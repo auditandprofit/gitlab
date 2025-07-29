@@ -1,0 +1,9 @@
+mutation createAiAgent($projectPath: ID!, $name: String!, $prompt: String!) {
+  aiAgentCreate(input: { projectPath: $projectPath, name: $name, prompt: $prompt }) {
+    agent {
+      id
+      routeId
+    }
+    errors
+  }
+}

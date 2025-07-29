@@ -1,0 +1,25 @@
+query getVirtualRegistryUpstreams($groupPath: ID!) {
+  group(fullPath: $groupPath) {
+    id
+    mavenVirtualRegistries {
+      nodes {
+        id
+        name
+        description
+        upstreams {
+          id
+          cacheValidityHours
+          name
+          description
+          username
+          password
+          url
+          registryUpstreams {
+            id
+            position
+          }
+        }
+      }
+    }
+  }
+}

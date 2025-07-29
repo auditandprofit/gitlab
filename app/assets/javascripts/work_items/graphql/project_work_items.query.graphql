@@ -1,0 +1,48 @@
+query projectWorkItems(
+  $searchTerm: String
+  $fullPath: ID!
+  $types: [IssueType!]
+  $in: [IssuableSearchableField!]
+  $iid: String = null
+  $searchByIid: Boolean = false
+  $searchByText: Boolean = true
+) {
+  workspace: project(fullPath: $fullPath) {
+    id
+    workItems(search: $searchTerm, types: $types, state: opened, in: $in)
+      @include(if: $searchByText) {
+      nodes {
+        id
+        iid
+        title
+        confidential
+        namespace {
+          id
+          fullPath
+        }
+        workItemType {
+          id
+          name
+          iconName
+        }
+      }
+    }
+    workItemsByIid: workItems(iid: $iid, types: $types) @include(if: $searchByIid) {
+      nodes {
+        id
+        iid
+        title
+        confidential
+        namespace {
+          id
+          fullPath
+        }
+        workItemType {
+          id
+          name
+          iconName
+        }
+      }
+    }
+  }
+}

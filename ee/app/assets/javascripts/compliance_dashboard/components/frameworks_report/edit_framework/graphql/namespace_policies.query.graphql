@@ -1,0 +1,92 @@
+#import "~/graphql_shared/fragments/page_info.fragment.graphql"
+#import "ee/security_orchestration/graphql/fragments/scan_policy_source.fragment.graphql"
+
+query namespacePolicies(
+  $fullPath: ID!
+  $approvalPoliciesAfter: String
+  $scanExecutionPoliciesAfter: String
+  $pipelineExecutionPoliciesAfter: String
+  $vulnerabilityManagementPoliciesAfter: String
+) {
+  namespace(fullPath: $fullPath) {
+    id
+    approvalPolicies(after: $approvalPoliciesAfter, relationship: DESCENDANT) {
+      nodes {
+        name
+        yaml
+        editPath
+        enabled
+        description
+        source {
+          ...SecurityPolicySource
+        }
+        updatedAt
+        userApprovers {
+          id
+          name
+          webUrl
+        }
+        allGroupApprovers {
+          id
+          fullPath
+          webUrl
+        }
+        roleApprovers
+      }
+      pageInfo {
+        ...PageInfo
+      }
+    }
+    scanExecutionPolicies(after: $scanExecutionPoliciesAfter, relationship: DESCENDANT) {
+      nodes {
+        name
+        yaml
+        editPath
+        enabled
+        description
+        source {
+          ...SecurityPolicySource
+        }
+        updatedAt
+      }
+      pageInfo {
+        ...PageInfo
+      }
+    }
+    pipelineExecutionPolicies(after: $pipelineExecutionPoliciesAfter, relationship: DESCENDANT) {
+      nodes {
+        name
+        yaml
+        editPath
+        enabled
+        description
+        source {
+          ...SecurityPolicySource
+        }
+        updatedAt
+      }
+      pageInfo {
+        ...PageInfo
+      }
+    }
+    vulnerabilityManagementPolicies(
+      after: $vulnerabilityManagementPoliciesAfter
+      relationship: DESCENDANT
+    ) {
+      nodes {
+        name
+        yaml
+        editPath
+        enabled
+        description
+        source {
+          ...SecurityPolicySource
+        }
+        updatedAt
+      }
+      pageInfo {
+        ...PageInfo
+      }
+    }
+  }
+}

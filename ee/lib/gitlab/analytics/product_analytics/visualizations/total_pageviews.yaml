@@ -1,0 +1,18 @@
+---
+version: 1
+type: SingleStat
+data:
+  type: cube_analytics
+  query:
+    measures:
+      - TrackedEvents.pageViewsCount
+    filters:
+      - operator: equals
+        values:
+          - page_view
+        member: TrackedEvents.eventName
+    limit: 100
+    timezone: UTC
+    dimensions: []
+    timeDimensions: []
+options: {}

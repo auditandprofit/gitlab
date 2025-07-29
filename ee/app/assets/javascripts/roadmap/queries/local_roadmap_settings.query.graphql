@@ -1,0 +1,7 @@
+#import './local_roadmap_settings.fragment.graphql'
+
+query localRoadmapSettings {
+  localRoadmapSettings @client {
+    ...LocalSettings
+  }
+}

@@ -1,0 +1,22 @@
+query vulnerabilitiesQuery($fullPath: ID!, $startDate: ISO8601Date!, $endDate: ISO8601Date!) {
+  project(fullPath: $fullPath) {
+    id
+    vulnerabilitiesCountByDay(startDate: $startDate, endDate: $endDate) {
+      nodes {
+        date
+        critical
+        high
+      }
+    }
+  }
+  group(fullPath: $fullPath) {
+    id
+    vulnerabilitiesCountByDay(startDate: $startDate, endDate: $endDate) {
+      nodes {
+        date
+        critical
+        high
+      }
+    }
+  }
+}

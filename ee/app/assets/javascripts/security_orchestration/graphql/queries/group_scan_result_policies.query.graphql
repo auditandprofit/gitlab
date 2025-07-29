@@ -1,0 +1,45 @@
+#import "../fragments/scan_policy_source.fragment.graphql"
+#import "../fragments/policy_scope.fragment.graphql"
+
+query groupScanResultPolicies(
+  $fullPath: ID!
+  $relationship: SecurityPolicyRelationType = INHERITED
+) {
+  namespace: group(fullPath: $fullPath) {
+    id
+    scanResultPolicies(relationship: $relationship) {
+      nodes {
+        csp
+        name
+        yaml
+        editPath
+        enabled
+        updatedAt
+        deprecatedProperties
+        actionApprovers {
+          allGroups {
+            id
+            webUrl
+            fullPath
+          }
+          customRoles {
+            id
+            name
+          }
+          roles
+          users {
+            id
+            webUrl
+            name
+          }
+        }
+        policyScope {
+          ...PolicyScope
+        }
+        source {
+          ...SecurityPolicySource
+        }
+      }
+    }
+  }
+}

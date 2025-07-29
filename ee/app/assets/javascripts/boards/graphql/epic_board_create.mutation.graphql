@@ -1,0 +1,10 @@
+#import "./epic_board.fragment.graphql"
+
+mutation createEpicBoard($input: EpicBoardCreateInput!) {
+  epicBoardCreate(input: $input) {
+    epicBoard {
+      ...EpicBoardFragment
+    }
+    errors
+  }
+}

@@ -1,0 +1,28 @@
+#import "../fragments/scan_policy_source.fragment.graphql"
+#import "../fragments/policy_scope.fragment.graphql"
+
+query groupPipelineExecutionPolicies(
+  $fullPath: ID!
+  $relationship: SecurityPolicyRelationType = INHERITED
+) {
+  namespace: group(fullPath: $fullPath) {
+    id
+    pipelineExecutionPolicies(relationship: $relationship) {
+      nodes {
+        csp
+        name
+        yaml
+        editPath
+        policyBlobFilePath
+        enabled
+        policyScope {
+          ...PolicyScope
+        }
+        source {
+          ...SecurityPolicySource
+        }
+        updatedAt
+      }
+    }
+  }
+}

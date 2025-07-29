@@ -1,0 +1,27 @@
+%h2.gl-heading-2= _('License overview')
+= render Pajamas::CardComponent.new(card_options: { class: 'gl-mb-5 gl-overflow-hidden' },
+                                    body_options: { class: 'sm:gl-flex gl-justify-between gl-items-center gl-bg-section' }) do |c|
+  - c.with_body do
+    .gl-mb-0.md:gl-flex.gl-flex-wrap.gl-items-center
+      .gl-mr-5
+        = sprite_icon('license', css_class: 'gl-fill-gray-700')
+        = _('Plan:')
+        %strong= @license.plan.capitalize
+      .gl-mr-5
+        = render 'admin/licenses/license_status'
+      .gl-mr-5
+        = _('Licensed to:')
+        %strong= @license.licensee_name
+        = "(#{@license.licensee_email})"
+      .gl-mr-5
+        = _('Type:')
+        - case @license.license_type
+        - when 'online_cloud'
+          %strong= _('Online license')
+        - when 'offline_cloud'
+          %strong= _('Offline license')
+        - when 'legacy_license'
+          %strong= _('Legacy license')
+    %div
+      - if current_user.can_admin_all_resources?
+        = link_button_to _('View details'), admin_subscription_path, class: 'gl-w-full gl-mt-3 sm:gl-mt-0'

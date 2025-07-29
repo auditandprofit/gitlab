@@ -1,0 +1,165 @@
+html {
+  &.touch .tooltip {
+    display: none !important;
+  }
+}
+
+// Do not change or manually disable this
+// Instead, call `- disable_fixed_body_scroll` inside your page's HAML template if you need to hide the scroll
+// Custom class is used instead of Tailwind so people can discover this, do not replace this with Tailwind analog
+.body-fixed-scrollbar {
+  overflow-y: scroll;
+}
+
+.container-fluid {
+  &.limit-container-width {
+    .flash-container.sticky {
+      max-width: $limited-layout-width;
+      margin-right: auto;
+      margin-left: auto;
+    }
+  }
+}
+
+.layout-page {
+  padding-top: $calc-application-bars-height;
+  padding-bottom: $calc-application-footer-height;
+}
+
+.content-wrapper {
+  padding-top: var(--top-bar-height);
+  padding-bottom: $content-wrapper-padding;
+}
+
+.container {
+  padding-top: 0;
+  z-index: 5;
+
+  .content {
+    margin: 0;
+
+    @include media-breakpoint-down(xs) { margin-top: 20px; }
+  }
+
+  @include media-breakpoint-down(xs) {
+    .container .title {
+      padding-left: 15px !important;
+    }
+  }
+}
+
+.container-limited {
+  max-width: $fixed-layout-width;
+
+  &.limit-container-width {
+    max-width: $limited-layout-width;
+  }
+}
+
+.alert-wrapper-top-space {
+  .gl-alert:first-child {
+    @apply gl-mt-3;
+  }
+}
+
+.alert-wrapper {
+  .alert-link-group {
+    float: right;
+  }
+
+  .flex-alert {
+    @include media-breakpoint-up(lg) {
+      display: flex;
+
+      .alert-message {
+        flex: 1;
+        padding-right: 40px;
+      }
+    }
+
+    .alert-link-group {
+      float: none;
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    .alert-link-group {
+      float: none;
+      margin-top: $gl-padding-8;
+    }
+  }
+}
+
+.gl--flex-full {
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.fullscreen-layout {
+  padding-top: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow: hidden;
+
+  > #js-peek,
+  > .header-logged-out {
+    position: static;
+    top: auto;
+  }
+
+  .flash-container {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .content-wrapper {
+    padding-bottom: 0;
+    flex: 1;
+    min-height: 0;
+  }
+}
+
+.gl-drawer-responsive {
+  // Both width & min-width
+  // are defined as per Pajamas
+  // See https://gitlab.com/gitlab-org/gitlab/-/merge_requests/44902#note_429056182
+  width: 28%;
+  min-width: 400px;
+  padding-left: $gl-padding;
+  padding-right: $gl-padding;
+  box-shadow: none;
+  @apply gl-bg-subtle gl-border-l;
+
+  @include media-breakpoint-down(sm) {
+    min-width: unset;
+    width: 100%;
+  }
+
+  // These overrides should not happen here,
+  // we should ideally have support for custom
+  // header and body classes in `GlDrawer`.
+  .gl-drawer-header,
+  .gl-drawer-body > * {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+
+/*
+ * These are used by the `Tab width` user preference in
+ * `https://gitlab.com/-/profile/preferences`. The `css_class_for_user` method in
+ * `lib/gitlab/tab_width.rb` is used to add one of these classes to the `body` element.
+*/
+
+@for $i from 1 through 12 {
+  #{'.tab-width-#{$i}'} {
+    /* stylelint-disable-next-line property-no-vendor-prefix */
+    -moz-tab-size: $i;
+    tab-size: $i;
+  }
+}

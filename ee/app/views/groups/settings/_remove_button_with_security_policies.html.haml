@@ -1,0 +1,17 @@
+- remove_form_id = local_assigns.fetch(:remove_form_id, nil)
+- button_text = local_assigns.fetch(:button_text, nil)
+- linked_configurations = local_assigns.fetch(:linked_configurations)
+
+%p= s_("SecurityOrchestration|Group cannot be deleted because it has projects that are linked as a security policy project")
+%p= s_("SecurityOrchestration|Unlink the following projects from the following containers:")
+%ul
+  - linked_configurations.group_by(&:security_policy_management_project).each do |policy_project, blocking_configurations|
+    %li
+      %strong= policy_project.full_path
+      %ul
+        - blocking_configurations.each do |configuration|
+          %li= link_to(configuration.project&.name || configuration.namespace&.name, security_policies_path(configuration.project || configuration.namespace))
+
+
+.js-confirm-danger{ data: group_confirm_modal_data(group: group, remove_form_id: remove_form_id, button_text: button_text, has_security_policy_project: linked_configurations.any?) }
+

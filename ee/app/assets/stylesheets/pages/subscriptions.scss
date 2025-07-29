@@ -1,0 +1,189 @@
+#zuora_payment {
+  margin-right: -8px;
+
+  iframe {
+    // stylelint-disable-next-line
+    background-color: unset;
+    margin: -4px;
+  }
+}
+
+// We can't get rid of these styles yet because there is a section of the registration with subscription flow which is
+// still making use of them. See https://gitlab.com/gitlab-org/gitlab/-/issues/359138 for more details.
+/* Checkout Page */
+$subscriptions-form-group-width: 420px;
+$subscriptions-full-width-md: $subscriptions-form-group-width + $gl-padding * 2 + 2;
+$subscriptions-full-width-lg: 541px;
+
+.subscriptions-layout-html {
+  .container {
+    max-width: none;
+    padding-top: 40px;
+  }
+
+  .checkout-alert {
+    width: 100%;
+    max-width: $subscriptions-full-width-md;
+
+    @media(min-width: map-get($grid-breakpoints, lg)) {
+      max-width: $subscriptions-full-width-lg;
+    }
+  }
+
+  .checkout {
+    align-items: center;
+    flex-grow: 1;
+    max-width: $subscriptions-full-width-md;
+
+    @media(min-width: map-get($grid-breakpoints, lg)) {
+      justify-content: inherit !important;
+      max-width: none;
+    }
+
+    .full-width {
+      max-width: $subscriptions-full-width-lg;
+      width: 100%;
+    }
+  }
+
+  .bar {
+    @media(min-width: map-get($grid-breakpoints, lg)) {
+      width: 400px;
+    }
+
+    list-style-position: inside;
+    list-style-type: decimal;
+
+    .phase {
+      border-bottom: 5px solid var(--gl-border-color-default);
+      @apply gl-text-subtle;
+      flex-basis: 100%;
+      font-size: $gl-font-size-12;
+      line-height: $gl-line-height;
+      padding-bottom: $gl-padding-8;
+
+      &.current,
+      &.finished {
+        border-bottom-color: $blue-400;
+      }
+
+      &.current {
+        color: $gray-900;
+      }
+    }
+  }
+
+  .card {
+    margin-bottom: 0;
+    min-height: 32px;
+    padding: $gl-padding;
+    max-width: $subscriptions-full-width-lg;
+
+    @media(min-width: map-get($grid-breakpoints, lg)) {
+      width: $subscriptions-full-width-lg;
+    }
+
+    &.payment-method {
+      // Use literals here to avoid dark theme from changing the color
+      // stylelint-disable-next-line
+      background-color: #fff;
+      // stylelint-disable-next-line
+      color: #303030;
+    }
+  }
+
+  // stylelint-disable-next-line gitlab/no-gl-class
+  .gl-form-group,
+  .combined {
+    flex-grow: 1;
+    max-width: 420px;
+
+    legend {
+      border-bottom: 0;
+      font-weight: $gl-font-weight-bold;
+    }
+
+    // stylelint-disable-next-line gitlab/no-gl-class
+    .gl-form-input,
+    .gl-form-select {
+      height: 32px;
+      line-height: 1rem;
+    }
+  }
+
+  .number {
+    @media(min-width: map-get($grid-breakpoints, lg)) {
+      max-width: 202px;
+    }
+  }
+
+  .btn {
+    line-height: 1;
+  }
+
+  .overview {
+    line-height: $gl-line-height-20;
+
+    .btn {
+      height: 24px;
+      padding: 1px 8px;
+      width: 48px;
+
+      @media(min-width: map-get($grid-breakpoints, lg)) {
+        width: initial;
+      }
+    }
+  }
+
+  #zuora_payment {
+    margin-right: -8px;
+
+    @media(min-width: map-get($grid-breakpoints, lg)) {
+      margin-right: 0;
+    }
+
+    iframe {
+      // Use literals here to avoid dark theme from changing the color
+      // stylelint-disable-next-line
+      background-color: #fff;
+      margin: -4px;
+      width: 100% !important;
+    }
+  }
+
+  .order-summary {
+    max-width: $subscriptions-full-width-md;
+
+    @media(min-width: map-get($grid-breakpoints, lg)) {
+      max-width: none;
+    }
+  }
+
+  .edit-group,
+  .edit-profile,
+  .new-project {
+    max-width: 460px;
+
+    .bar {
+      width: 100%;
+    }
+
+    .normal {
+      font-weight: $gl-font-weight-normal;
+    }
+
+    .project-import {
+      h5 {
+        display: none;
+      }
+
+      .import-buttons {
+        @apply gl-gap-2 gl-flex gl-flex-col;
+
+        .btn {
+          @apply gl-w-full;
+        }
+      }
+    }
+  }
+}

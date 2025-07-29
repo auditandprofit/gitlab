@@ -1,0 +1,7 @@
+- breadcrumb_title s_('LearnGitLab|Get started')
+- page_title s_('LearnGitLab|Get started')
+
+- content_for :hide_broadcast_messages, true
+- content_for :hide_unlimited_members_during_trial_alert, hide_unlimited_members_during_trial_alert?(onboarding_progress)
+
+#js-get-started-app{ data: { view_model: @get_started_presenter.attributes } }

@@ -1,0 +1,37 @@
+- return unless product_analytics_settings_allowed?(@project)
+- data = analytics_project_settings_data(@project).merge(onboarding_path: project_analytics_dashboards_path(@project, vueroute: 'product-analytics-onboarding'))
+
+%h4
+  = s_('ProjectSettings|Product analytics')
+%p
+  - link = link_to('', help_page_path('development/internal_analytics/product_analytics.md'), target: '_blank', rel: 'noopener noreferrer')
+  = safe_format(s_('ProjectSettings|Set up your project to receive events that are used for %{link_start}product analytics%{link_end}.'), tag_pair(link, :link_start, :link_end))
+
+- if data[:tracking_key].present?
+  .gl-mb-3
+    #js-product-analytics-instrumentation-settings{ data: data }
+
+%h4
+  = s_('ProjectSettings|Configure your instance')
+%p
+  = s_('ProjectSettings|Override the instance analytics configuration for this project.')
+  - link = link_to('', help_page_path('development/internal_analytics/product_analytics.md', anchor: 'product-analytics-provider'), target: '_blank', rel: 'noopener noreferrer')
+  = safe_format(s_('ProjectSettings|If GitLab manages your cluster, then GitLab retains your analytics data for 1 year. %{link_start}Learn more about data retention policy%{link_end}.'), tag_pair(link, :link_start, :link_end))
+
+= gitlab_ui_form_for @project, url: project_settings_analytics_path(@project, anchor: 'js-analytics-instance-settings'), html: { class: 'fieldset-form', id: 'product-analytics-settings', autocomplete: 'off' } do |f|
+  = f.fields_for :project_setting do |settings|
+    %fieldset
+      = render partial: 'projects/settings/analytics/configurator_settings', locals: { f: settings }
+      .form-group
+        = settings.label :product_analytics_data_collector_host, s_('ProjectSettings|Collector host'), class: 'label-light'
+        = settings.url_field :product_analytics_data_collector_host, data: { testid: 'collector-host-field' }, class: 'form-control gl-form-input', placeholder: 'https://collector.gitlab.com'
+        .form-text.gl-text-subtle
+          = s_('ProjectSettings|The host of your data collector instance.')
+      .form-group
+        = settings.label :cube_api_base_url, s_('ProjectSettings|Cube API URL'), class: 'label-light'
+        = settings.url_field :cube_api_base_url, data: { testid: 'cube-api-url-field' }, class: 'form-control gl-form-input', placeholder: 'https://cube.gitlab.com'
+        .form-text.gl-text-subtle
+          = s_('ProjectSettings|The URL of your Cube instance.')
+      .form-group
+        .js-input-copy-visibility{ data: cube_api_key_data(form_name: 'project[project_setting_attributes]', value: @project.project_setting.cube_api_key, testid: 'cube-api-key-field') }
+  = f.submit _('Save changes'), pajamas_button: true, data: { testid: 'save-changes-button' }

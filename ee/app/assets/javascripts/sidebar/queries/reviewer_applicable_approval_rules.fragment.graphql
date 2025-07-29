@@ -1,0 +1,5 @@
+fragment ReviewersApplicableApprovalRules on UserMergeRequestInteraction {
+  applicableApprovalRules {
+    id
+  }
+}

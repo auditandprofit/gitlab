@@ -1,0 +1,17 @@
+- return unless show_exact_code_search_settings?(@user)
+
+= render ::Layouts::SettingsSectionComponent.new('',
+  options: { class: 'js-preferences-form' }) do |c|
+  - c.with_heading do
+    .gl-inline-flex.gl-gap-3
+      = s_('Preferences|Exact code search')
+      = gl_badge_tag _('Beta'), variant: :info, class: 'gl-self-center'
+  - c.with_description do
+    = s_('Preferences|Use exact code search instead of advanced search to search for code in GitLab.')
+    = link_to _('Learn more.'), help_page_path('user/profile/preferences.md', anchor: 'disable-exact-code-search-deprecated'), target: '_blank', rel: 'noopener noreferrer'
+  - c.with_body do
+    .form-group
+      = form.gitlab_ui_checkbox_component :enabled_zoekt,
+        s_('Preferences|Enable exact code search')
+
+    %p= link_button_to _('Provide feedback'), "https://gitlab.com/gitlab-org/gitlab/-/issues/420920", target: '_blank'

@@ -1,0 +1,11 @@
+#import "./epic_detailed.fragment.graphql"
+
+mutation CreateEpic($input: CreateEpicInput!) {
+  createIssuable: createEpic(input: $input) {
+    issuable: epic {
+      ...EpicDetailed
+      color
+    }
+    errors
+  }
+}

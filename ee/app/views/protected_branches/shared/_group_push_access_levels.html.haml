@@ -1,0 +1,4 @@
+- group_push_access_levels = protected_branch.push_access_levels.for_group
+- if group_push_access_levels.any?
+  %p.small
+    = n_('Members of this group can also push to this branch: %{branch}', 'Members of these groups can also push to this branch: %{branch}', group_push_access_levels.size) % { branch: group_push_access_levels.map(&:humanize).to_sentence }

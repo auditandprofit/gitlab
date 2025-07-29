@@ -1,0 +1,16 @@
+#import "./ai_metric_item.fragment.graphql"
+
+query aiMetricsQuery($fullPath: ID!, $startDate: Date!, $endDate: Date!) {
+  project(fullPath: $fullPath) {
+    id
+    aiMetrics(startDate: $startDate, endDate: $endDate) {
+      ...AiMetricItem
+    }
+  }
+  group(fullPath: $fullPath) {
+    id
+    aiMetrics(startDate: $startDate, endDate: $endDate) {
+      ...AiMetricItem
+    }
+  }
+}

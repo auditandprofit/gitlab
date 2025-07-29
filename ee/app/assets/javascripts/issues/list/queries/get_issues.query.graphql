@@ -1,0 +1,180 @@
+#import "~/graphql_shared/fragments/page_info.fragment.graphql"
+#import "~/issues/list/queries/issue.fragment.graphql"
+#import "ee/work_items/graphql/work_item_status.fragment.graphql"
+
+query getIssuesEE(
+  $hideUsers: Boolean = false
+  $isProject: Boolean = false
+  $isSignedIn: Boolean = false
+  $searchByEpic: Boolean = false
+  $fullPath: ID!
+  $iid: String
+  $search: String
+  $sort: IssueSort
+  $state: IssuableState
+  $in: [IssuableSearchableField!]
+  $assigneeId: String
+  $assigneeWildcardId: AssigneeWildcardId
+  $assigneeUsernames: [String!]
+  $authorUsername: String
+  $confidential: Boolean
+  $labelName: [String]
+  $milestoneTitle: [String]
+  $milestoneWildcardId: MilestoneWildcardId
+  $myReactionEmoji: String
+  $releaseTag: [String!]
+  $releaseTagWildcardId: ReleaseTagWildcardId
+  $types: [IssueType!]
+  $epicId: String
+  $epicWildcardId: EpicWildcardId
+  $iterationId: [ID]
+  $iterationWildcardId: IterationWildcardId
+  $iterationCadenceId: [IterationsCadenceID!]
+  $weight: String
+  $weightWildcardId: WeightWildcardId
+  $healthStatusFilter: HealthStatusFilter
+  $crmContactId: String
+  $crmOrganizationId: String
+  $not: NegatedIssueFilterInput
+  $or: UnionedIssueFilterInput
+  $beforeCursor: String
+  $afterCursor: String
+  $firstPageSize: Int
+  $lastPageSize: Int
+  $createdAfter: Time
+  $createdBefore: Time
+  $closedAfter: Time
+  $closedBefore: Time
+  $subscribed: SubscriptionStatus
+  $customField: [WorkItemWidgetCustomFieldFilterInputType!]
+  $status: String
+) {
+  group(fullPath: $fullPath) @skip(if: $isProject) @persist {
+    id
+    issues(
+      includeSubepics: true
+      includeSubgroups: true
+      iid: $iid
+      search: $search
+      sort: $sort
+      state: $state
+      in: $in
+      assigneeId: $assigneeId
+      assigneeWildcardId: $assigneeWildcardId
+      assigneeUsernames: $assigneeUsernames
+      authorUsername: $authorUsername
+      confidential: $confidential
+      labelName: $labelName
+      milestoneTitle: $milestoneTitle
+      milestoneWildcardId: $milestoneWildcardId
+      myReactionEmoji: $myReactionEmoji
+      types: $types
+      epicId: $epicId
+      epicWildcardId: $epicWildcardId
+      iterationId: $iterationId
+      iterationWildcardId: $iterationWildcardId
+      iterationCadenceId: $iterationCadenceId
+      weight: $weight
+      weightWildcardId: $weightWildcardId
+      healthStatusFilter: $healthStatusFilter
+      crmContactId: $crmContactId
+      crmOrganizationId: $crmOrganizationId
+      not: $not
+      or: $or
+      before: $beforeCursor
+      after: $afterCursor
+      first: $firstPageSize
+      last: $lastPageSize
+      createdAfter: $createdAfter
+      createdBefore: $createdBefore
+      closedAfter: $closedAfter
+      closedBefore: $closedBefore
+      subscribed: $subscribed
+      customField: $customField
+      status: { name: $status }
+    ) {
+      __persist
+      pageInfo {
+        ...PageInfo
+      }
+      nodes {
+        __persist
+        ...IssueFragment
+        reference(full: true)
+        blockingCount
+        healthStatus
+        weight
+        status {
+          ...WorkItemStatusFragment
+        }
+        epic @include(if: $searchByEpic) {
+          id
+        }
+      }
+    }
+  }
+  project(fullPath: $fullPath) @include(if: $isProject) @persist {
+    id
+    issues(
+      includeSubepics: true
+      iid: $iid
+      search: $search
+      sort: $sort
+      state: $state
+      in: $in
+      assigneeId: $assigneeId
+      assigneeWildcardId: $assigneeWildcardId
+      assigneeUsernames: $assigneeUsernames
+      authorUsername: $authorUsername
+      confidential: $confidential
+      labelName: $labelName
+      milestoneTitle: $milestoneTitle
+      milestoneWildcardId: $milestoneWildcardId
+      myReactionEmoji: $myReactionEmoji
+      releaseTag: $releaseTag
+      releaseTagWildcardId: $releaseTagWildcardId
+      types: $types
+      epicId: $epicId
+      epicWildcardId: $epicWildcardId
+      iterationId: $iterationId
+      iterationWildcardId: $iterationWildcardId
+      iterationCadenceId: $iterationCadenceId
+      weight: $weight
+      weightWildcardId: $weightWildcardId
+      healthStatusFilter: $healthStatusFilter
+      crmContactId: $crmContactId
+      crmOrganizationId: $crmOrganizationId
+      not: $not
+      or: $or
+      before: $beforeCursor
+      after: $afterCursor
+      first: $firstPageSize
+      last: $lastPageSize
+      createdAfter: $createdAfter
+      createdBefore: $createdBefore
+      closedAfter: $closedAfter
+      closedBefore: $closedBefore
+      subscribed: $subscribed
+      customField: $customField
+      status: { name: $status }
+    ) {
+      __persist
+      pageInfo {
+        ...PageInfo
+      }
+      nodes {
+        __persist
+        ...IssueFragment
+        blockingCount
+        healthStatus
+        weight
+        status {
+          ...WorkItemStatusFragment
+        }
+        epic @include(if: $searchByEpic) {
+          id
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+#import "../fragments/flow.fragment.graphql"
+
+query getAgentFlow($workflowId: AiDuoWorkflowsWorkflowID!) {
+  duoWorkflowWorkflows(workflowId: $workflowId) {
+    edges {
+      node {
+        ...FlowFragment
+        latestCheckpoint {
+          checkpoint
+        }
+      }
+    }
+  }
+}

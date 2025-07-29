@@ -1,0 +1,51 @@
+- label = s_('DuoChat|GitLab Duo Chat')
+- duo_with_amazon_q_label = s_('DuoChat|GitLab Duo with Amazon Q')
+- chat_disabled_reason = ::Gitlab::Llm::TanukiBot.chat_disabled_reason(user: current_user, container: @group || @project).to_s
+- amazon_q_enabled = ::Ai::AmazonQ.enabled?
+- show_ask_duo_hotspot = !current_user.dismissed_callout?(feature_name: 'duo_chat_callout')
+
+- if chat_disabled_reason.present?
+  - translated_project = s_('DuoChat|project')
+  - translated_group = s_('DuoChat|group')
+  - translated_reason = chat_disabled_reason == 'project' ? translated_project : translated_group
+  - tooltip_text = safe_format(s_('DuoChat|An administrator has turned off GitLab Duo for this %{reason}'), reason: translated_reason)
+
+  - experiment(:hotspot_duo_chat_during_trial, actor: current_user) do |e|
+    - e.candidate do
+      - if show_ask_duo_hotspot
+        %button{ class: 'js-ask-duo-hotspot gl-bg-transparent gl-border-none gl-p-0', aria: { label: 'Ask Duo hotspot button' } }
+          = image_tag 'illustrations/hotspot.gif', size: 16, alt: 'Ask Duo hotspot image'
+
+  %span.has-tooltip{ title: tooltip_text, data: { container: 'body' } }
+    = render Pajamas::ButtonComponent.new(variant: :default,
+      category: :secondary,
+      icon: 'duo-chat-off',
+      size: 'medium',
+      button_options: { class: 'disabled-button-1 js-tanuki-bot-chat-toggle gl-hidden md:gl-inline', data: { chat_disabled_reason: chat_disabled_reason }, aria: { label: label, disabled: "true" }, disabled: true }) do
+      = label
+
+  %span.has-tooltip{ title: tooltip_text, data: { container: 'body' } }
+    = render Pajamas::ButtonComponent.new(variant: :default,
+      category: :secondary,
+      icon: 'duo-chat-off',
+      size: 'medium',
+      button_options: { class: 'disabled-button-2 js-tanuki-bot-chat-toggle md:gl-hidden', data: { chat_disabled_reason: chat_disabled_reason }, aria: { label: label, disabled: "true" }, disabled: true })
+
+- else
+  - experiment(:hotspot_duo_chat_during_trial, actor: current_user) do |e|
+    - e.candidate do
+      - if show_ask_duo_hotspot
+        %button{ class: 'js-ask-duo-hotspot gl-bg-transparent gl-border-none gl-p-0', aria: { label: 'Ask Duo hotspot button' } }
+          = image_tag 'illustrations/hotspot.gif', size: 16, alt: 'Ask Duo hotspot image'
+
+  = render Pajamas::ButtonComponent.new(variant: :default,
+    category: :secondary,
+    icon: 'duo-chat',
+    size: 'medium',
+    button_options: { class: 'enabled-button js-tanuki-bot-chat-toggle gl-hidden md:gl-inline', aria: { label: amazon_q_enabled ? duo_with_amazon_q_label : label }}) do
+    = amazon_q_enabled ? duo_with_amazon_q_label : label
+  = render Pajamas::ButtonComponent.new(variant: :default,
+    category: :secondary,
+    icon: 'duo-chat',
+    size: 'medium',
+    button_options: { class: 'enabled-button js-tanuki-bot-chat-toggle md:gl-hidden', aria: { label: amazon_q_enabled ? duo_with_amazon_q_label : label }})

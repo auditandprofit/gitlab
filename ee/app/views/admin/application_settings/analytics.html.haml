@@ -1,0 +1,38 @@
+- page_title _("Analytics")
+- add_page_specific_style 'page_bundles/settings'
+- @hide_search_settings = true
+
+.settings-section{ data: { event_tracking_load: 'true', event_tracking: 'view_admin_application_settings_analytics_pageload' } }
+  .settings-sticky-header
+    .settings-sticky-header-inner
+      %h2.gl-heading-2{ class: '!gl-mb-2' }
+        = _('Product analytics')
+  %p.gl-text-subtle
+    = s_('AdminSettings|Configure product analytics to track events within your project applications.')
+    = link_to _('Learn more.'), help_page_path('development/internal_analytics/product_analytics.md')
+
+  = render Pajamas::AlertComponent.new(dismissible: false) do |c|
+    - c.with_body do
+      - link = link_to('', help_page_path('development/internal_analytics/product_analytics.md', anchor: 'product-analytics-provider'), target: '_blank', rel: 'noopener noreferrer')
+      = safe_format(s_('AdminSettings|If GitLab manages your cluster, then GitLab retains your analytics data for 1 year. %{link_start}Learn more about data retention policy%{link_end}.'), tag_pair(link, :link_start, :link_end))
+
+  .gl-mt-4
+    = gitlab_ui_form_for @application_setting, url: general_admin_application_settings_path, html: { class: 'fieldset-form', id: 'product-analytics-settings', autocomplete: 'off' } do |f|
+      = form_errors(@application_setting)
+      %fieldset
+        .form-group
+          = f.gitlab_ui_checkbox_component :product_analytics_enabled, s_('AdminSettings|Enable product analytics')
+        = render partial: 'product_analytics_configurator_settings', locals: { f: f }
+        .form-group
+          = f.label :product_analytics_data_collector_host, s_('AdminSettings|Collector host'), class: 'label-light'
+          = f.url_field :product_analytics_data_collector_host, class: 'form-control gl-form-input', placeholder: 'https://collector.gitlab.com'
+          .form-text.gl-text-subtle
+            = s_('AdminSettings|The host of your data collector instance.')
+        .form-group
+          = f.label :cube_api_base_url, s_('AdminSettings|Cube API URL'), class: 'label-light'
+          = f.url_field :cube_api_base_url, class: 'form-control gl-form-input', placeholder: 'https://cube.gitlab.com'
+          .form-text.gl-text-subtle
+            = s_('AdminSettings|The URL of your Cube instance.')
+        .form-group
+          .js-input-copy-visibility{ data: cube_api_key_data(form_name: 'application_setting', value: @application_setting.cube_api_key, testid: 'cube-api-key-field') }
+      = f.submit _('Save changes'), pajamas_button: true, data: {event_tracking: 'user_edited_cluster_configuration'}

@@ -1,0 +1,23 @@
+@use 'functions';
+@import 'page_bundles/mixins_and_variables_and_functions';
+
+$base-font-size: 16px;
+$code-row-height-target: 20px;
+$code-font-size-target: 12.5px;
+
+$code-row-height: calc($code-row-height-target / $base-font-size * 1rem);
+$code-font-size: calc($code-font-size-target / $base-font-size * 1rem);
+$code-line-height: calc($code-row-height-target / $code-font-size-target);
+
+$app-header-vertical-padding: $gl-spacing-scale-3;
+$app-vertical-breakpoint: md;
+
+$diff-file-border-width: 1px;
+$diff-file-header-padding-y: $gl-spacing-scale-3;
+
+$diff-file-line-number-z-index: 1;
+$diff-file-hunk-header-z-index: functions.more-than($diff-file-line-number-z-index);
+$diff-file-highlighted-line-number-z-index: functions.more-than($diff-file-hunk-header-z-index);
+$diff-file-cell-focused-z-index: functions.more-than($diff-file-highlighted-line-number-z-index);
+$diff-file-header-z-index: functions.more-than($diff-file-cell-focused-z-index);
+$diff-file-header-active-z-index: functions.more-than($diff-file-header-z-index);

@@ -1,0 +1,18 @@
+- page_title s_('DuoEnterpriseTrial|Start your free GitLab Duo Enterprise trial')
+- content_for :page_specific_javascripts do
+  = render 'layouts/google_tag_manager_head'
+  = render 'layouts/one_trust'
+= render 'layouts/google_tag_manager_body'
+
+.gl-flex.gl-flex-col.md:gl-flex-row.gl-items-center.gl-justify-center.gl-py-6.gl-bg-no-repeat.bg-decorations
+  .sm:gl-m-8.gl-max-w-62
+    .gl-p-7.gl-rounded-lg.gl-bg-default
+      = sprite_icon('tanuki-ai', size: 32, css_class: 'gl-pb-3')
+      %h2.gl-pb-5.gl-my-0
+        = s_('DuoEnterpriseTrial|Apply your GitLab Duo Enterprise trial to an existing group')
+      = before_form_content
+      = form_tag submit_path, class: 'js-saas-duo-enterprise-trial-group', data: { testid: 'trial-form' } do
+        .js-namespace-selector{ data: trial_namespace_selector_data }
+        = render Pajamas::ButtonComponent.new(type: :submit, variant: :confirm, button_options: { class: 'gl-w-full' }) do
+          = s_('DuoEnterpriseTrial|Activate my trial')
+  = render GitlabSubscriptions::Trials::DuoEnterprise::AdvantagesListComponent.new

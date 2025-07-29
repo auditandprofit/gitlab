@@ -1,0 +1,12 @@
+query mergeRequestId($projectPath: ID!, $iid: String!) {
+  project(fullPath: $projectPath) {
+    id
+    mergeRequest(iid: $iid) {
+      id
+      diffStatsSummary {
+        fileCount
+      }
+      preparedAt
+    }
+  }
+}

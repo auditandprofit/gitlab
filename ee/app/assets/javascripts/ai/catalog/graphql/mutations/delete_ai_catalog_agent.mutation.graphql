@@ -1,0 +1,6 @@
+mutation deleteAiCatalogAgent($id: AiCatalogItemID!) {
+  aiCatalogAgentDelete(input: { id: $id }) {
+    errors
+    success
+  }
+}

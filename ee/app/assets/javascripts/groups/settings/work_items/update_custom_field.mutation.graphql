@@ -1,0 +1,20 @@
+mutation updateCustomField(
+  $id: IssuablesCustomFieldID!
+  $name: String!
+  $selectOptions: [CustomFieldSelectOptionInput!]
+  $workItemTypeIds: [WorkItemsTypeID!]
+) {
+  customFieldUpdate(
+    input: {
+      id: $id
+      name: $name
+      selectOptions: $selectOptions
+      workItemTypeIds: $workItemTypeIds
+    }
+  ) {
+    customField {
+      id
+    }
+    errors
+  }
+}

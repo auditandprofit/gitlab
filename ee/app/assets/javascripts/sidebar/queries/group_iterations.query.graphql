@@ -1,0 +1,13 @@
+#import "./iteration.fragment.graphql"
+
+query issueIterationsAliased($fullPath: ID!, $title: String, $state: IterationState) {
+  workspace: group(fullPath: $fullPath) {
+    id
+    attributes: iterations(search: $title, in: [TITLE, CADENCE_TITLE], state: $state) {
+      nodes {
+        ...IterationFragment
+        state
+      }
+    }
+  }
+}

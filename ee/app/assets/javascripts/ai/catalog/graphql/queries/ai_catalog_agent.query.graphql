@@ -1,0 +1,14 @@
+#import "../fragments/ai_catalog_item.fragment.graphql"
+#import "../fragments/ai_catalog_agent_version.fragment.graphql"
+
+query aiCatalogAgent($id: AiCatalogItemID!) {
+  aiCatalogItem(id: $id) {
+    ...BaseAiCatalogItem
+    project {
+      id
+    }
+    latestVersion {
+      ...BaseAiCatalogAgentVersion
+    }
+  }
+}

@@ -1,0 +1,16 @@
+query getCustomEmoji($groupPath: ID!, $after: String) {
+  group(fullPath: $groupPath) {
+    id
+    customEmoji(after: $after, includeAncestorGroups: true) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        id
+        name
+        url
+      }
+    }
+  }
+}

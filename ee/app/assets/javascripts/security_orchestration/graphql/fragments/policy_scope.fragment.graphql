@@ -1,0 +1,54 @@
+#import "~/graphql_shared/fragments/page_info.fragment.graphql"
+
+fragment PolicyScope on PolicyScope {
+  complianceFrameworks {
+    nodes {
+      id
+      name
+      color
+      description
+      editPath
+      projects {
+        nodes {
+          id
+        }
+        pageInfo {
+          ...PageInfo
+        }
+      }
+    }
+    pageInfo {
+      ...PageInfo
+    }
+  }
+  excludingProjects {
+    nodes {
+      id
+      name
+      fullPath
+    }
+    pageInfo {
+      ...PageInfo
+    }
+  }
+  includingProjects {
+    nodes {
+      id
+      name
+      fullPath
+    }
+    pageInfo {
+      ...PageInfo
+    }
+  }
+  includingGroups {
+    nodes {
+      id
+      name
+      fullPath
+    }
+    pageInfo {
+      ...PageInfo
+    }
+  }
+}

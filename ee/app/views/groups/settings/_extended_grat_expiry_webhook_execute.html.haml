@@ -1,0 +1,11 @@
+- return unless group.licensed_feature_available?(:group_webhooks)
+
+%h5= s_('GroupSettings|Add additional webhook triggers for group access token expiration')
+
+.form-group.gl-mb-3
+  = f.gitlab_ui_checkbox_component :extended_grat_expiry_webhooks_execute, checkbox_options: { disabled: !can?(current_user, :admin_group, group), checked: group.extended_grat_expiry_webhooks_execute? } do |c|
+    - c.with_label do
+      = s_('GroupSettings|Add additional webhook triggers for group access token expiration')
+    - c.with_help_text do
+      = s_("GroupSettings|If enabled, group access tokens expiry webhooks execute 60, 30, and 7 days before the token expires. If disabled, these webhooks only execute 7 days before the token expires.")
+      = link_to s_('GroupSettings|Add additional webhook triggers for group access token expiration'), help_page_path('user/group/manage.md', anchor: 'add-additional-webhook-triggers-for-group-access-token-expiration'), class: 'gl-font-sm', target: :_blank

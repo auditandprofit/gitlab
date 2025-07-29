@@ -1,0 +1,26 @@
+---
+version: 1
+type: LineChart
+data:
+  type: cube_analytics
+  query:
+    measures:
+      - TrackedEvents.pageViewsCount
+    timeDimensions:
+      - dimension: TrackedEvents.derivedTstamp
+        granularity: day
+    filters:
+      - operator: equals
+        values:
+          - page_view
+        member: TrackedEvents.eventName
+    limit: 100
+    timezone: UTC
+    dimensions: []
+options:
+  xAxis:
+    name: Date
+    type: time
+  yAxis:
+    name: Counts
+    type: value

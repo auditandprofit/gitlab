@@ -1,0 +1,23 @@
+fragment EpicNode on Epic {
+  id
+  iid
+  group {
+    id
+    fullPath
+  }
+  title
+  state
+  reference
+  referencePath: reference(full: true)
+  webPath
+  webUrl
+  createdAt
+  closedAt
+  linkedWorkItems {
+    nodes {
+      linkId
+      linkType
+      workItemState
+    }
+  }
+}

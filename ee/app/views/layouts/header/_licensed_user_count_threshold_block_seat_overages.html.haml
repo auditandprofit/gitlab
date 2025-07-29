@@ -1,0 +1,9 @@
+- return unless show_block_seat_overages_user_count_banner?
+
+= render Pajamas::AlertComponent.new(title: _('Your instance is approaching its licensed user count'),
+  close_button_options: { type: 'button', data: { testid: 'user-count-block-seats-overages-alert' } }) do |c|
+  - c.with_body do
+    = _('Your instance has %{remaining_user_count} users remaining of the %{total_user_count} in your subscription. When there are no more seats, users cannot be invited or added to the instance.') % { remaining_user_count: remaining_user_count, total_user_count: total_user_count }
+  - c.with_actions do
+    = render Pajamas::ButtonComponent.new(variant: :confirm, href: help_page_path('subscriptions/manage_users_and_seats.md', anchor: 'buy-more-seats')) do
+      = s_('Purchase more seats')

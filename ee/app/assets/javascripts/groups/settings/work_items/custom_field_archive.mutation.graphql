@@ -1,0 +1,10 @@
+mutation customFieldArchive($id: IssuablesCustomFieldID!) {
+  customFieldArchive(input: { id: $id }) {
+    customField {
+      id
+      name
+      fieldType
+    }
+    errors
+  }
+}

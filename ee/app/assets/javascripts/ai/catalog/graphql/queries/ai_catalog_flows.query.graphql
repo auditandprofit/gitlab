@@ -1,0 +1,15 @@
+#import "../fragments/ai_catalog_item.fragment.graphql"
+#import "../fragments/ai_catalog_flow_version.fragment.graphql"
+
+query aiCatalogFlows {
+  aiCatalogItems(itemType: FLOW) {
+    nodes {
+      ...BaseAiCatalogItem
+      versions {
+        nodes {
+          ...BaseAiCatalogFlowVersion
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+- title = s_('VirtualRegistry|Edit upstream')
+- add_to_breadcrumbs s_('VirtualRegistry|Virtual registry'), group_virtual_registries_path(@group)
+- add_to_breadcrumbs s_('VirtualRegistry|Maven'), group_virtual_registries_maven_registries_path(@group)
+- add_to_breadcrumbs s_('VirtualRegistry|Upstreams'), group_virtual_registries_maven_upstream_path(@group, @maven_upstream) # There is no index view, so we reuse show here
+- add_to_breadcrumbs @maven_upstream.id.to_s, group_virtual_registries_maven_upstream_path(@group, @maven_upstream)
+- breadcrumb_title _('Edit')
+- page_title title, s_('VirtualRegistry|Maven'), s_('VirtualRegistry|Virtual registry')
+
+#js-vue-virtual-registry-edit-maven-upstream{ "data-provide": edit_upstream_template_data(@maven_upstream) }

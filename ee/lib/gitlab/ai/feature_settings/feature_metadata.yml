@@ -1,0 +1,220 @@
+code_generations:
+  title: Code Generation
+  main_feature: Code Suggestions
+  release_state: GA
+  compatible_llms:
+    - codegemma
+    - codellama
+    - codestral
+    - deepseekcoder
+    - mistral
+    - mixtral
+    - llama3
+    - claude_3
+    - gpt
+  unit_primitives:
+    - generate_code
+code_completions:
+  title: Code Completion
+  release_state: GA
+  main_feature: Code Suggestions
+  compatible_llms:
+    - codegemma
+    - codellama
+    - codestral
+    - deepseekcoder
+    - mistral
+    - mixtral
+    - llama3
+    - claude_3
+    - gpt
+  unit_primitives:
+    - complete_code
+    - code_suggestions
+duo_chat:
+  title: General Chat
+  release_state: GA
+  main_feature: GitLab Duo Chat
+  compatible_llms:
+    - mistral
+    - mixtral
+    - claude_3
+    - gpt
+    - llama3
+  unit_primitives:
+    - duo_chat
+    - chat
+    - include_file_context
+    - include_snippet_context
+    - include_merge_request_context
+    - include_issue_context
+    - include_dependency_context
+    - include_local_git_context
+    - include_terminal_context
+    - include_repository_context
+    - include_user_rule_context
+duo_chat_explain_code:
+  title: Code Explanation
+  release_state: GA
+  main_feature: GitLab Duo Chat
+  compatible_llms:
+    - mistral
+    - mixtral
+    - claude_3
+    - gpt
+    - llama3
+  unit_primitives:
+    - explain_code
+duo_chat_write_tests:
+  title: Test Generation
+  release_state: GA
+  main_feature: GitLab Duo Chat
+  compatible_llms:
+    - mistral
+    - mixtral
+    - claude_3
+    - gpt
+    - codestral
+    - llama3
+  unit_primitives:
+    - write_tests
+duo_chat_refactor_code:
+  title: Refactor Code
+  release_state: GA
+  main_feature: GitLab Duo Chat
+  compatible_llms:
+    - mistral
+    - mixtral
+    - claude_3
+    - gpt
+    - codestral
+    - llama3
+  unit_primitives:
+    - refactor_code
+duo_chat_fix_code:
+  title: Fix Code
+  release_state: GA
+  main_feature: GitLab Duo Chat
+  compatible_llms:
+    - mistral
+    - mixtral
+    - claude_3
+    - gpt
+    - codestral
+    - llama3
+  unit_primitives:
+    - fix_code
+duo_chat_troubleshoot_job:
+  title: Root Cause Analysis
+  release_state: BETA
+  main_feature: GitLab Duo Chat
+  compatible_llms:
+    - mistral
+    - mixtral
+    - claude_3
+    - gpt
+    - llama3
+  unit_primitives:
+    - troubleshoot_job
+duo_chat_explain_vulnerability:
+  title: Vulnerability Explanation
+  release_state: BETA
+  main_feature: Other GitLab Duo features
+  compatible_llms:
+    - mistral
+    - mixtral
+    - claude_3
+    - gpt
+    - llama3
+  unit_primitives:
+    - explain_vulnerability
+duo_chat_summarize_comments:
+  title: Discussion Summary
+  release_state: BETA
+  main_feature: GitLab Duo for issues
+  compatible_llms:
+    - mistral
+    - mixtral
+    - claude_3
+    - gpt
+    - llama3
+  unit_primitives:
+    - summarize_comments
+generate_commit_message:
+  title: Merge Commit Message Generation
+  release_state: BETA
+  main_feature: GitLab Duo for merge requests
+  compatible_llms:
+    - mistral
+    - mixtral
+    - claude_3
+    - gpt
+    - llama3
+  unit_primitives:
+    - generate_commit_message
+summarize_new_merge_request:
+  title: Merge Request Summary
+  release_state: BETA
+  main_feature: GitLab Duo for merge requests
+  compatible_llms:
+    - mistral
+    - mixtral
+    - claude_3
+    - gpt
+    - llama3
+  unit_primitives:
+    - summarize_new_merge_request
+resolve_vulnerability:
+  title: Vulnerability Resolution
+  release_state: BETA
+  main_feature: Other GitLab Duo features
+  compatible_llms:
+    - mistral
+    - mixtral
+    - claude_3
+    - gpt
+    - llama3
+  unit_primitives:
+    - resolve_vulnerability
+summarize_review:
+  title: Code Review Summary
+  release_state: EXPERIMENT
+  main_feature: GitLab Duo for merge requests
+  compatible_llms:
+    - mistral
+    - mixtral
+    - claude_3
+    - gpt
+    - llama3
+  unit_primitives:
+    - summarize_review
+glab_ask_git_command:
+  title: GitLab Duo for CLI
+  release_state: BETA
+  main_feature: Other GitLab Duo features
+  compatible_llms:
+    - mistral
+    - mixtral
+    - claude_3
+    - gpt
+    - llama3
+  unit_primitives:
+    - glab_ask_git_command
+review_merge_request:
+  title: Code Review
+  release_state: EXPERIMENT
+  main_feature: GitLab Duo for merge requests
+  compatible_llms:
+    - claude_3
+  unit_primitives:
+    - review_merge_request
+duo_agent_platform:
+  title: Duo Agent Platform
+  release_state: BETA
+  main_feature: GitLab Duo Agent Platform
+  compatible_llms:
+    - claude_3
+  unit_primitives:
+    - agent_action
+    - agent_context
+    - agent_workflow

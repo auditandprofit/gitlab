@@ -1,0 +1,10 @@
+- title = s_("WorkItem|Issues settings")
+- breadcrumb_title title
+- page_title title
+
+%h1.gl-heading-1.gl-mb-1.settings-title
+  = _('Issues')
+%p.gl-text-subtle
+  = s_('WorkItem|Configure work items such as epics, issues, and tasks to represent how your team works.')
+
+#js-work-items-settings-form{ data: { full_path: @group.full_path } }

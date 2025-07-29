@@ -1,0 +1,73 @@
+.table-holder {
+  margin: 0;
+  overflow: auto;
+}
+
+table {
+  &.table {
+    .thead-white {
+      th {
+        background-color: $white;
+      }
+    }
+  }
+
+  .md &:not(.code),
+  &.table:not(.gl-table) {
+    margin-bottom: $gl-padding;
+
+    .dropdown-menu a {
+      text-decoration: none;
+    }
+
+    .success,
+    .warning,
+    .danger,
+    .info {
+      color: $white;
+
+      a:not(.btn) {
+        text-decoration: underline;
+        color: $white;
+      }
+    }
+
+    tr {
+      td,
+      th {
+        padding: 10px $gl-padding;
+        @apply gl-leading-20;
+        vertical-align: top;
+      }
+
+    }
+
+    thead tr {
+      th {
+        @apply gl-bg-strong;
+        border-bottom: 0;
+
+        &.wide {
+          width: 55%;
+        }
+      }
+    }
+
+    .thead-white {
+      th {
+        @apply gl-text-subtle;
+        border-top: 0;
+      }
+    }
+  }
+}
+
+.top-area + .content-list {
+  th {
+    border-top: 0;
+  }
+}
+
+.gl-table-no-top-border th {
+  border-top: 0;
+}

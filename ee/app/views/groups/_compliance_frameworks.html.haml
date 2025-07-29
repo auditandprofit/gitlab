@@ -1,0 +1,12 @@
+- return unless show_compliance_frameworks?(@group) && show_compliance_framework_settings_moved_callout?(@group)
+
+%section.settings.expanded
+  = render Pajamas::AlertComponent.new(variant: :info,
+    title: _('Compliance framework settings have moved.'),
+    alert_options: { class: 'js-compliance-framework-settings-callout gl-my-5',
+                     data: { feature_id: ::EE::Users::GroupCalloutsHelper::COMPLIANCE_FRAMEWORK_SETTINGS_MOVED_CALLOUT,
+                             group_id: @group.id,
+                             dismiss_endpoint: group_callouts_path,
+                             defer_links: 'true' }}) do |c|
+    - c.with_body do
+      = _('On the left sidebar, select %{compliance_center_link} to view them.').html_safe % { compliance_center_link: link_to('Secure > Compliance Center', group_security_compliance_dashboard_path(@group, vueroute: 'frameworks')).html_safe }
